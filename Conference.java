@@ -13,13 +13,22 @@ public class Conference [
         numTables = numT;
         pplPerTable = pPT;
         aArraySize = numT*pPT*1.5;
-        Attendee[] conferencearray = new Attendee[aArraySize];
+        Attendee[] conferenceArray = new Attendee[aArraySize];
         readFileA();
     }
     public void readFileA() throws IOException {
         Scanner scan = new Scanner(new File(filenameA));
         int i =0;
-        while (i<)
+        while (i<aArraySize && sca.hasNext()){
+            String line = scan.nextLine();
+            String[] elements = line.split(",");
+            int id = elements[0];
+            String lN = elements[1];
+            String fN = elements[2];
+            String cN = elements[3];
+            conferenceArray[i]=new Attendee(fN, lN, id, cN);
+            i++
+        } 
     }
 
     //methods

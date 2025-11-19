@@ -1,15 +1,24 @@
 public class Attendee {
     //variables
     private String firstName;
-    private String lastName
+    private String lastName;
+    private int idNum;
     private String cName;
-    private String cNumber;
+    private int cNumber;
 
     //constructor
-    public Attendee(String f, String l, String cNm, String cNum){
+    public Attendee(String f, String l, int idN, String cNm, int cNum){
         firstName = f;
         lastName = l;
+        idNum = idN;
         cName = cNm;
+        cNumber = cNum;
+    }
+
+    public Attendee(String f, String l, int idN, int cNum){
+        firstName = f;
+        lastName = l;
+        idNum = idN;
         cNumber = cNum;
     }
 
@@ -19,6 +28,9 @@ public class Attendee {
     }
     public String getLast(){
         return lastName;
+    }
+    public int getID(){
+        return idNum;
     }
     public String getCompany(){
         return cName;
