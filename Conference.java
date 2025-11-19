@@ -7,7 +7,8 @@ public class Conference [
     private int aArraySize;
     private Attendee[] conferencearray;
     private String filenameA = "confGuests.txt"; //name of text file that stores guests
-    
+    private String[][] tables = new String[10][10];
+
     //constructors
     public Conference(int numT, int pPT) throws IOException {
         numTables = numT;
@@ -19,7 +20,7 @@ public class Conference [
     public void readFileA() throws IOException {
         Scanner scan = new Scanner(new File(filenameA));
         int i =0;
-        while (i<aArraySize && sca.hasNext()){
+        while (i<aArraySize && scan.hasNext()){
             String line = scan.nextLine();
             String[] elements = line.split(",");
             int id = elements[0];
@@ -30,7 +31,12 @@ public class Conference [
             i++
         } 
     }
-
     //methods
+    public void assignSeats(){
+        for(int t=0; t<numTables; t++){
+            
+        }
+
+    }
 
 ]
