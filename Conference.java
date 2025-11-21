@@ -8,17 +8,17 @@ public class Conference {
     private int capacity;
     private Attendee[] conferenceArray;
     private String filenameA = "confGuests.txt"; //name of text file that stores guests
-    private String[][] tables;
+    private int[][] tables;
 
     //constructors
-    public Conference(int numT, int pPT) throws IOException {
+    public Conference(int numT, int pPT) {
         numTables = numT;
         pplPerTable = pPT;
         capacity = numT*pPT;
         aArraySize = (int)(numT*pPT*1.5);
         Attendee[] conferenceArray = new Attendee[aArraySize];
-        readFileA();
         tables = new int[numTables][pplPerTable];
+        fillArray();
     }
     public void readFileA() throws IOException {
         Scanner scan = new Scanner(new File(filenameA));
@@ -38,33 +38,44 @@ public class Conference {
     public void fillArray(){
         for (int r=0; r<numTables; r++){
             for (int c=0; c<pplPerTable; c++){
-                tables[r][c]="-1";
+                tables[r][c]=-1;
             }
         }
     }
     public boolean isValid(int tableNum, int idSearch){
+        boolean free = false;
         for (int c=0; c<pplPerTable; c++){
             if (tables[tableNum][c]==idSearch){
-                return false
+                return false;
+            }
+            if (tables[tableNum][c]==-1){
+                free = true;
             }
         }
-        if ()
-        return true;
+        return free;
     }
     public void place(int tableNum, int idPlace){
-        for (tables)
+        for (int c=0; c<pplPerTable; c++){
+            if (tables[tableNum][c]==-1){
+                tables[tableNum][c]=idPlace;
+            }
+        }
     }
     public void organizeTables(){
         for(int a=0; a<capacity; a++){
             for (int t=0; t<numTables; t++){
-                if (isValid(t,conferenceArray[a].getID)){
-                    place(t, conferenceArray[a].getID);
+                if (isValid(t,conferenceArray[a].getID())){
+                    place(t, conferenceArray[a].getID());
                 }
             }
-            
         }
-
     }
-
-
+    public void printIDTablesArray(){
+        for (int t=0; t<numTables; t++){
+            for (int a=0; a<pplPerTable; a++){
+                System.out.print(tables[t][a] + " ");
+            }
+            System.out.print("\n");
+        }
+    }
 }
