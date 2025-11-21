@@ -36,6 +36,6 @@ public class Attendee {
         return cName;
     }
     public int getCompNum(){
-        return cNum;
+        return cNumber;
     }
 }
