@@ -5,10 +5,12 @@ public class Conference {
     private int numTables;
     private int pplPerTable;
     private int aFileSize;
+    private int cFileSize;
     private int aArraySize;
     private int capacity;
     private Attendee[] conferenceArray;
     private String filenameA = "confGuests.txt"; //name of text file that stores guests
+    private String filenameC = "companies.txt";
     private int[][] tablesCompNum;
     private int[][] tablesID;
     private Attendee[][] tablesAttendee;
@@ -28,9 +30,8 @@ public class Conference {
     public void readFileA() {
         try {
             Scanner scan = new Scanner(new File(filenameA));
-            int i =0;
             aFileSize = 0;
-            while (i<capacity && scan.hasNext()){
+            while (scan.hasNext()){
                 String line = scan.nextLine();
                 String[] elements = line.split(",");
                 int id = Integer.parseInt(elements[0]);
@@ -38,13 +39,31 @@ public class Conference {
                 String fN = elements[2];
                 int cN = Integer.parseInt(elements[3]);
                 conferenceArray[i]=new Attendee(fN, lN, id, cN);
-                i++;
                 aFileSize++;
             }
         } catch (FileNotFoundException e){
             System.out.println("File not Found!");
         }
     }
+    /*public void readFileC() {
+        try {
+            Scanner scan1 = new Scanner(new File(filenameC));
+            cFileSize = 0;
+            while (scan1.hasNext()){
+                String line = scan1.nextLine();
+                String[] elements = line.split(",");
+                int id = Integer.parseInt(elements[0]);
+                String lN = elements[1];
+                String fN = elements[2];
+                int cN = Integer.parseInt(elements[3]);
+                conferenceArray[i]=new Attendee(fN, lN, id, cN);
+                cFileSize++;
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("File not Found!");
+        }
+    }
+    */
     //methods
     public void fillArray(){
         for (int r=0; r<numTables; r++){
@@ -109,11 +128,13 @@ public class Conference {
                     System.out.print(tablesAttendee[t][a].getFirst() + " ");
                 }
                 else {
-                    System.out.print("NA");
+                    System.out.print("NA ");
                 }
             }
             System.out.print("\n");
         }
     }
+    //add searchPerson method
+    //add grabTableInfo by # method
     
 }
