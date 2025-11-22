@@ -4,6 +4,7 @@ import java.util.*;
 public class Conference {
     private int numTables;
     private int pplPerTable;
+    private int aFileSize;
     private int aArraySize;
     private int capacity;
     private Attendee[] conferenceArray;
@@ -16,7 +17,7 @@ public class Conference {
         pplPerTable = pPT;
         capacity = numT*pPT;
         aArraySize = (int)(numT*pPT*1.5);
-        Attendee[] conferenceArray = new Attendee[aArraySize];
+        conferenceArray = new Attendee[aArraySize];
         tables = new int[numTables][pplPerTable];
         fillArray();
     }
@@ -24,7 +25,8 @@ public class Conference {
         try {
             Scanner scan = new Scanner(new File(filenameA));
             int i =0;
-            while (i<aArraySize && scan.hasNext()){
+            int aFileSize = 0;
+            while (i<capacity && scan.hasNext()){
                 String line = scan.nextLine();
                 String[] elements = line.split(",");
                 int id = Integer.parseInt(elements[0]);
@@ -33,6 +35,7 @@ public class Conference {
                 int cN = Integer.parseInt(elements[3]);
                 conferenceArray[i]=new Attendee(fN, lN, id, cN);
                 i++;
+                aFileSize++;
             }
         } catch (FileNotFoundException e){
             System.out.println("File not Found!");
@@ -62,11 +65,12 @@ public class Conference {
         for (int c=0; c<pplPerTable; c++){
             if (tables[tableNum][c]==-1){
                 tables[tableNum][c]=idPlace;
+                break;
             }
         }
     }
     public void organizeTables(){
-        for(int a=0; a<capacity; a++){
+        for(int a=0; a<aFileSize; a++){
             for (int t=0; t<numTables; t++){
                 if (isValid(t,conferenceArray[a].getID())){
                     place(t, conferenceArray[a].getID());
