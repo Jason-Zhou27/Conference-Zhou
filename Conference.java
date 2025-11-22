@@ -27,19 +27,22 @@ public class Conference {
         tablesAttendee = new Attendee[numTables][pplPerTable];
         fillArray();
     }
-    public void readFileA() {
+    public void readFileA() { //loads text file of attendees into 1D array conferenceArray
         try {
             Scanner scan = new Scanner(new File(filenameA));
             aFileSize = 0;
+            int i = 0;
+            //go through all lines of text file, extracting info, creating attendee objects
             while (scan.hasNext()){
                 String line = scan.nextLine();
-                String[] elements = line.split(",");
+                String[] elements = line.split(","); //split w/ , delimiter 
                 int id = Integer.parseInt(elements[0]);
                 String lN = elements[1];
                 String fN = elements[2];
                 int cN = Integer.parseInt(elements[3]);
-                conferenceArray[i]=new Attendee(fN, lN, id, cN);
+                conferenceArray[i]=new Attendee(fN, lN, id, cN); //use constructor to build attendee objects
                 aFileSize++;
+                i++;
             }
         } catch (FileNotFoundException e){
             System.out.println("File not Found!");
@@ -105,6 +108,15 @@ public class Conference {
             }
         }
     }
+    public String manualAdd(){
+		System.out.print("To add attendee, use the following format to enter info--NO SPACES: [first name],[last name],[company name],[company number]");
+		Scanner scan2 = new Scanner(System.in);
+		String lineManual = scan2.nextLine();
+		String[] elementsM = line.split(",");
+		int fNManual = elementsM[0];
+		int lNManual = elementsM[1];
+		
+	}	
     public void printIDTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
