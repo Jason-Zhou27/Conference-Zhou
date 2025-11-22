@@ -8,5 +8,6 @@ public class Runner {
         c1.readFileA();
         c1.organizeTables();
         c1.printIDTablesArray();
+        c1.printCompNumTablesArray();
     }
 }

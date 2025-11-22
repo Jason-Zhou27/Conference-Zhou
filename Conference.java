@@ -9,7 +9,9 @@ public class Conference {
     private int capacity;
     private Attendee[] conferenceArray;
     private String filenameA = "confGuests.txt"; //name of text file that stores guests
+    private int[][] tablesCompNum;
     private int[][] tablesID;
+    private Attendee[][] tablesAttendee;
 
     //constructors
     public Conference(int numT, int pPT) {
@@ -18,7 +20,9 @@ public class Conference {
         capacity = numT*pPT;
         aArraySize = (int)(numT*pPT*1.5);
         conferenceArray = new Attendee[aArraySize];
+        tablesCompNum = new int[numTables][pplPerTable];
         tablesID = new int[numTables][pplPerTable];
+        tablesAttendee = new Attendee[numTables][pplPerTable];
         fillArray();
     }
     public void readFileA() {
@@ -61,10 +65,10 @@ public class Conference {
         }
         return free;
     }
-    public void place(int tableNum, int idPlace){
+    public void place(int tableNum, int compNumPlace, int iDplace, Attendee attendeePlace){
         for (int c=0; c<pplPerTable; c++){
             if (tablesID[tableNum][c]==-1){
-                tablesID[tableNum][c]=idPlace;
+                tablesID[tableNum][c]=compNumPlace;
                 break;
             }
         }
@@ -73,15 +77,8 @@ public class Conference {
         for(int a=0; a<aFileSize; a++){
             for (int t=0; t<numTables; t++){
                 if (isValid(t,conferenceArray[a].getCompNum())){
-                    place(t, conferenceArray[a].getID());
+                    place(t, conferenceArray[a].getCompNum(), conferenceArray[a].getID());
                     break;
-                }
-            }
-        }
-        for (int t=0; t<numTables; t++){
-            for (int a=0; a<pplPerTable;a++){
-                for (int c=0; c<aFileSize; c++){
-                    if ()
                 }
             }
         }
@@ -94,4 +91,15 @@ public class Conference {
             System.out.print("\n");
         }
     }
+    public void printCompNumTablesArray(){
+        for (int t=0; t<numTables; t++){
+            for (int a=0; a<pplPerTable; a++){
+                if (tablesAttendee[t][a]!=null){
+                    System.out.print(tablesAttendee[t][a].getCompNum() + " ");
+                }
+            }
+            System.out.print("\n");
+        }
+    }
+    
 }
