@@ -9,7 +9,7 @@ public class Conference {
     private int capacity;
     private Attendee[] conferenceArray;
     private String filenameA = "confGuests.txt"; //name of text file that stores guests
-    private int[][] tables;
+    private int[][] tablesID;
 
     //constructors
     public Conference(int numT, int pPT) {
@@ -18,14 +18,14 @@ public class Conference {
         capacity = numT*pPT;
         aArraySize = (int)(numT*pPT*1.5);
         conferenceArray = new Attendee[aArraySize];
-        tables = new int[numTables][pplPerTable];
+        tablesID = new int[numTables][pplPerTable];
         fillArray();
     }
     public void readFileA() {
         try {
             Scanner scan = new Scanner(new File(filenameA));
             int i =0;
-            int aFileSize = 0;
+            aFileSize = 0;
             while (i<capacity && scan.hasNext()){
                 String line = scan.nextLine();
                 String[] elements = line.split(",");
@@ -45,17 +45,17 @@ public class Conference {
     public void fillArray(){
         for (int r=0; r<numTables; r++){
             for (int c=0; c<pplPerTable; c++){
-                tables[r][c]=-1;
+                tablesID[r][c]=-1;
             }
         }
     }
-    public boolean isValid(int tableNum, int idSearch){
+    public boolean isValid(int tableNum, int compIdSearch){
         boolean free = false;
         for (int c=0; c<pplPerTable; c++){
-            if (tables[tableNum][c]==idSearch){
+            if (tablesID[tableNum][c]==compIdSearch){
                 return false;
             }
-            if (tables[tableNum][c]==-1){
+            if (tablesID[tableNum][c]==-1){
                 free = true;
             }
         }
@@ -63,8 +63,8 @@ public class Conference {
     }
     public void place(int tableNum, int idPlace){
         for (int c=0; c<pplPerTable; c++){
-            if (tables[tableNum][c]==-1){
-                tables[tableNum][c]=idPlace;
+            if (tablesID[tableNum][c]==-1){
+                tablesID[tableNum][c]=idPlace;
                 break;
             }
         }
@@ -72,8 +72,16 @@ public class Conference {
     public void organizeTables(){
         for(int a=0; a<aFileSize; a++){
             for (int t=0; t<numTables; t++){
-                if (isValid(t,conferenceArray[a].getID())){
+                if (isValid(t,conferenceArray[a].getCompNum())){
                     place(t, conferenceArray[a].getID());
+                    break;
+                }
+            }
+        }
+        for (int t=0; t<numTables; t++){
+            for (int a=0; a<pplPerTable;a++){
+                for (int c=0; c<aFileSize; c++){
+                    if ()
                 }
             }
         }
@@ -81,7 +89,7 @@ public class Conference {
     public void printIDTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
-                System.out.print(tables[t][a] + " ");
+                System.out.print(tablesID[t][a] + " ");
             }
             System.out.print("\n");
         }
