@@ -49,14 +49,15 @@ public class Conference {
     public void fillArray(){
         for (int r=0; r<numTables; r++){
             for (int c=0; c<pplPerTable; c++){
+                tablesCompNum[r][c]=-1;
                 tablesID[r][c]=-1;
             }
         }
     }
-    public boolean isValid(int tableNum, int compIdSearch){
+    public boolean isValid(int tableNum, int compNumSearch){
         boolean free = false;
         for (int c=0; c<pplPerTable; c++){
-            if (tablesID[tableNum][c]==compIdSearch){
+            if (tablesCompNum[tableNum][c]==compNumSearch){
                 return false;
             }
             if (tablesID[tableNum][c]==-1){
@@ -68,7 +69,9 @@ public class Conference {
     public void place(int tableNum, int compNumPlace, int iDplace, Attendee attendeePlace){
         for (int c=0; c<pplPerTable; c++){
             if (tablesID[tableNum][c]==-1){
-                tablesID[tableNum][c]=compNumPlace;
+                tablesCompNum[tableNum][c]=compNumPlace;
+                tablesID[tableNum][c]=iDplace;
+                tablesAttendee[tableNum][c]=attendeePlace;
                 break;
             }
         }
@@ -77,7 +80,7 @@ public class Conference {
         for(int a=0; a<aFileSize; a++){
             for (int t=0; t<numTables; t++){
                 if (isValid(t,conferenceArray[a].getCompNum())){
-                    place(t, conferenceArray[a].getCompNum(), conferenceArray[a].getID());
+                    place(t, conferenceArray[a].getCompNum(), conferenceArray[a].getID(), conferenceArray[a]);
                     break;
                 }
             }
@@ -94,8 +97,19 @@ public class Conference {
     public void printCompNumTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
+                System.out.print(tablesCompNum[t][a] + " ");
+            }
+            System.out.print("\n");
+        }
+    }
+    public void printFirstNameTablesArray(){
+        for (int t=0; t<numTables; t++){
+            for (int a=0; a<pplPerTable; a++){
                 if (tablesAttendee[t][a]!=null){
-                    System.out.print(tablesAttendee[t][a].getCompNum() + " ");
+                    System.out.print(tablesAttendee[t][a].getFirst() + " ");
+                }
+                else {
+                    System.out.print("NA");
                 }
             }
             System.out.print("\n");
