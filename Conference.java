@@ -113,8 +113,12 @@ public class Conference {
 		Scanner scan2 = new Scanner(System.in);
 		String lineManual = scan2.nextLine();
 		String[] elementsM = line.split(",");
-		int fNManual = elementsM[0];
-		int lNManual = elementsM[1];
+		String fNManual = elementsM[0];
+		String lNManual = elementsM[1];
+		String cnManual = elementsM[2];
+		String cNumManual = elementsM[3];
+		
+		
 		
 	}	
     public void printIDTablesArray(){
