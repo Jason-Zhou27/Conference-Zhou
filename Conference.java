@@ -46,7 +46,8 @@ public class Conference {
                 String lN = elements[1];
                 String fN = elements[2];
                 int cN = Integer.parseInt(elements[3]);
-                conferenceArray[i]=new Attendee(fN, lN, id, cN); //use constructor to build attendee objects
+                String cName = searchCompanyName(cN);
+                conferenceArray[i]=new Attendee(fN, lN, id, cName, cN); //use constructor to build attendee objects
                 aFileSize++;
                 i++;
             }
@@ -76,23 +77,33 @@ public class Conference {
     }
     public String searchCompanyName(int searchCompanyID){
 		for (int i=0; i<companyArray.length;i++){
-			if (Integer.parseInt(companyArray[1,i])==searchCompanyID){
-				return companyArray[0,i];
+			if(companyArray[0][i]!=null){
+				if (Integer.parseInt(companyArray[0][i])==searchCompanyID){
+					return companyArray[1][i];
+				}
 			}	
 		}
+		return "NA";
 	}	
     public void manualAdd(){ //manual registration method
-		System.out.print("To add attendee, use the following format to enter info--NO SPACES: [first name],[last name],[company name],[company number]\n");
+		System.out.print("If you wish to manually add attendees, press any key except for q. If you wish to quit, press q. \n");
 		Scanner scan2 = new Scanner(System.in);
-		String lineManual = scan2.nextLine();
-		String[] elementsM = lineManual.split(",");
-		String fNManual = elementsM[0];
-		String lNManual = elementsM[1];
-		String cnManual = elementsM[2];
-		int cNumManual = Integer.parseInt(elementsM[3]);
-		conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
-		manualID++;
-		System.out.println("Successfully added!");
+		if (!(scan2.nextLine()).equals("q")){
+			System.out.print("How many attendees do you wish to add?:");
+			int amtManualAttendees = Integer.parseInt(scan2.nextLine());
+			for(int i=0; i<amtManualAttendees; i++){
+				System.out.print("To add attendee, use the following format to enter info: [first name],[last name],[company name],[company number] \n");
+				String lineManual = scan2.nextLine();
+				String[] elementsM = lineManual.split(",");
+				String fNManual = elementsM[0];
+				String lNManual = elementsM[1];
+				String cnManual = elementsM[2];
+				int cNumManual = Integer.parseInt(elementsM[3]);
+				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+				manualID++;
+				System.out.println("Successfully added!");
+			}
+		}	
 	}
     public void fillArray(){
         for (int r=0; r<numTables; r++){
