@@ -1,3 +1,9 @@
+/**
+ * Conference.java
+ * @author Jason Zhou
+ * @since (date) 11/19/2025
+ * This class organizes the Conference by registering attendees and organizing attendees at tables
+*/
 import java.io.*;
 import java.util.*;
 

@@ -1,8 +1,20 @@
+/**
+ * Runner.java
+ * @author Jason Zhou
+ * @since (date) 11/19/2025
+ * This class is the Runner/Main/Tester class which runs the program
+*/
+/*
+ * Runner class runs the program by calling Conference constructor and using its methods
+*/
 public class Runner {
     //variables
 
     //methods
-
+    /*
+     * Main method creates instantiation of Conference with the Conference constructor. With Conference methods, it reads Company Text File, reads Attendee Text File
+     * presents user with option to manually add attendees, organizes the tables, prints the Tables w/ IDs, prints the Tables w/ Company #s, and prints Tables w/ First Names
+    */
     public static void main(String[] args){
         Conference c1 = new Conference(10,10);
         c1.readFileC();

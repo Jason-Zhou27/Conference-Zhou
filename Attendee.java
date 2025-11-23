@@ -1,3 +1,9 @@
+/**
+ * Attendee.java
+ * @author Jason Zhou
+ * @since (date) 11/19/2025
+ * This class assists in the creation of Attendee objects
+*/
 public class Attendee {
     //variables
     private String firstName;
