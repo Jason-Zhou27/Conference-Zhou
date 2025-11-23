@@ -14,6 +14,7 @@ public class Conference {
     private int[][] tablesCompNum;
     private int[][] tablesID;
     private Attendee[][] tablesAttendee;
+    private int manualID; //gives id of manual registration
 
     //constructors
     public Conference(int numT, int pPT) {
@@ -44,6 +45,7 @@ public class Conference {
                 aFileSize++;
                 i++;
             }
+            manualID=aFileSize+1; //not readFileA functionality; assists in finding initial id for manual add section
         } catch (FileNotFoundException e){
             System.out.println("File not Found!");
         }
@@ -108,8 +110,8 @@ public class Conference {
             }
         }
     }
-    public String manualAdd(){
-		System.out.print("To add attendee, use the following format to enter info--NO SPACES: [first name],[last name],[company name],[company number]");
+    public String manualAdd(){ //manual registration method
+		System.out.print("To add attendee, use the following format to enter info--NO SPACES: [first name],[last name],[company name],[company number]\n");
 		Scanner scan2 = new Scanner(System.in);
 		String lineManual = scan2.nextLine();
 		String[] elementsM = line.split(",");
@@ -117,9 +119,7 @@ public class Conference {
 		String lNManual = elementsM[1];
 		String cnManual = elementsM[2];
 		String cNumManual = elementsM[3];
-		
-		
-		
+		conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
 	}	
     public void printIDTablesArray(){
         for (int t=0; t<numTables; t++){
