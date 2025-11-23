@@ -6,8 +6,12 @@
 */
 import java.io.*;
 import java.util.*;
-
+/*
+ * Conference class organizes the Conference w/ a constructor and the following methods: readFileA(), readFileC(), searchCompanyName(), manualAdd(), fillArray(),
+ * isValid(), place(), organizeTables(), printIDTablesArray(), printCompNumTablesArray(), & printFirstNamesTablesArray()
+*/
 public class Conference {
+	//variables
     private int numTables;
     private int pplPerTable;
     private int aFileSize;
@@ -17,14 +21,18 @@ public class Conference {
     private int capacity;
     private Attendee[] conferenceArray;
     private String[][] companyArray;
-    private String filenameA = "confGuests.txt"; //name of text file that stores guests
-    private String filenameC = "companies.txt";
+    private String filenameA = "confGuests.txt"; //name of text file that stores attendees/guests
+    private String filenameC = "companies.txt"; //name of text file that stores companies
     private int[][] tablesCompNum;
     private int[][] tablesID;
     private Attendee[][] tablesAttendee;
     private int manualID; //gives id of manual registration
 
     //constructors
+    /*
+     * Conference constructor takes in arguments such as number of tables and people per tables, uses those arguments to calculate and define circumstances of the conference,
+     * and fills tables arrays
+    */ 
     public Conference(int numT, int pPT) {
         numTables = numT;
         pplPerTable = pPT;
@@ -39,6 +47,11 @@ public class Conference {
         fillArray();
     }
     //methods
+    /*
+     * readFileA reads the attendee file with a Scanner; it takes in each line of info, extracts the individual elements using the comma delimiter, and constructs Attendee objects using
+     * such info. It also counts the number of attendees loaded through the text file.
+     * Employs try and catch structure.
+    */
     public void readFileA() { //loads text file of attendees into 1D array conferenceArray
         try {
             Scanner scan = new Scanner(new File(filenameA));
@@ -62,6 +75,12 @@ public class Conference {
             System.out.println("File not Found!");
         }
     }
+    /*
+     * similar to readFileA, readFileC reads the company file with a Scanner; it takes in each line of info, extracts the individual elements using the comma delimeter, and populates
+     * a 2d array of companies with each company receiving a respective column (row 1 is company id and row 2 is name). The 2d array of companies will be used in creating Attendee objects
+     * by finding the company name that corresponds to a company id.
+     * Employs try and catch structure.
+    */
     public void readFileC() {
         try {
             Scanner scan1 = new Scanner(new File(filenameC));
