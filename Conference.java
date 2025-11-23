@@ -91,8 +91,9 @@ public class Conference {
 		if (!(scan2.nextLine()).equals("q")){
 			System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
 			//definite quantity
-			if (!(scan2.nextLine()).equals("NA")){
-				int amtManualAttendees = Integer.parseInt(scan2.nextLine());
+			String manualAttendeeResponseNum = scan2.nextLine();
+			if (!(manualAttendeeResponseNum.equals("NA"))){
+				int amtManualAttendees = Integer.parseInt(manualAttendeeResponseNum);
 				for(int i=0; i<amtManualAttendees; i++){
 					System.out.print("To add attendee, use the following format to enter info: [first name],[last name],[company name],[company number] \n");
 					String lineManual = scan2.nextLine();
