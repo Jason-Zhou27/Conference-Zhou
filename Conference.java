@@ -77,7 +77,7 @@ public class Conference {
     }
     /*
      * similar to readFileA, readFileC reads the company file with a Scanner; it takes in each line of info, extracts the individual elements using the comma delimeter, and populates
-     * a 2d array of companies with each company receiving a respective column (row 1 is company id and row 2 is name). The 2d array of companies will be used in creating Attendee objects
+     * a 2d array of companies with each company receiving a respective column (row 0 is company id and row 1 is name). The 2d array of companies will be used in creating Attendee objects
      * by finding the company name that corresponds to a company id.
      * Employs try and catch structure.
     */
@@ -100,6 +100,11 @@ public class Conference {
             System.out.println("File not Found!");
         }
     }
+    /*
+     * searchCompanyName takes in a company ID as a parameter to find the corresponding company name. It looks through a 2d array which allots a company per column which has row 0 
+     * used for company id and row 1 for name. With a for loop, it goes through the length of the companyArray, comparing the id of each column to the id being searched. If it finds a 
+     * match, it returns the company name; if not, it returns NA signaling a company name was not found
+    */
     public String searchCompanyName(int searchCompanyID){
 		for (int i=0; i<companyArray.length;i++){
 			if(companyArray[0][i]!=null){
@@ -109,7 +114,14 @@ public class Conference {
 			}	
 		}
 		return "NA";
-	}	
+	}
+	/*
+	 * manualAdd allows the user to interact with the program to manually register attendees that were not loaded through pre-registration. It presents the option to either add a definite
+	 * or indefinite number, which helps with convenience. To manually add attendees, the program prompts the user to enter the required info using a specific format (similar to the one in the txt file)
+	 * and uses a similar process (splitting up individual info with delimiter) to extract information to create an instantiation of the attendee object; since the id is not explicitly known by the
+	 * person registering, the program will start those who register with a manual id relative to the last id of manual registration and increment it every time someone manually registers. The program
+	 * will present the user with a notification if the attendee was successfully added or not and a warning if the max # of attendees is being approached
+	*/ 	
     public void manualAdd(){ //manual registration method
 		System.out.print("If you wish to manually add attendees, press any key except for q. If you wish to quit, press q. \n");
 		Scanner scan2 = new Scanner(System.in);
@@ -155,6 +167,10 @@ public class Conference {
 			}	
 		}	
 	}
+	/*
+	 * fillArray is a method which fills the tablesCompNum 2d array and the tablesID 2d array w/ -1s, which is a placeholder to signify--when the arrays are being searched--that there is a vacancy
+	 * that can be filled; a nested for loop in another for loop is used to circulate.
+	*/
     public void fillArray(){
         for (int r=0; r<numTables; r++){
             for (int c=0; c<pplPerTable; c++){
