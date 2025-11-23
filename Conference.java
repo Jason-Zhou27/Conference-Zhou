@@ -26,11 +26,13 @@ public class Conference {
         aArraySize = (int)(numT*pPT*1.5);
         cArraySize = (int)(numT*pPT*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
         conferenceArray = new Attendee[aArraySize];
+        companyArray = new String[2][cArraySize];
         tablesCompNum = new int[numTables][pplPerTable];
         tablesID = new int[numTables][pplPerTable];
         tablesAttendee = new Attendee[numTables][pplPerTable];
         fillArray();
     }
+    //methods
     public void readFileA() { //loads text file of attendees into 1D array conferenceArray
         try {
             Scanner scan = new Scanner(new File(filenameA));
@@ -53,17 +55,17 @@ public class Conference {
             System.out.println("File not Found!");
         }
     }
-    /*public void readFileC() {
+    public void readFileC() {
         try {
             Scanner scan1 = new Scanner(new File(filenameC));
             cFileSize = 0;
-            s=0;
+            int s=0;
             while (scan1.hasNext()){
                 String lineComp = scan1.nextLine();
-                String[] elementsComp = line.split(",");
-                String fileCompId = elements[0];
-                String fileCompName = elements[1];
-                conmpanyArray[0][s]=fileCompId;
+                String[] elementsComp = lineComp.split(",");
+                String fileCompId = elementsComp[0];
+                String fileCompName = elementsComp[1];
+                companyArray[0][s]=fileCompId;
                 companyArray[1][s]=fileCompName;
                 cFileSize++;
                 s++;
@@ -72,8 +74,26 @@ public class Conference {
             System.out.println("File not Found!");
         }
     }
-    */
-    //methods
+    public String searchCompanyName(int searchCompanyID){
+		for (int i=0; i<companyArray.length;i++){
+			if (Integer.parseInt(companyArray[1,i])==searchCompanyID){
+				return companyArray[0,i];
+			}	
+		}
+	}	
+    public void manualAdd(){ //manual registration method
+		System.out.print("To add attendee, use the following format to enter info--NO SPACES: [first name],[last name],[company name],[company number]\n");
+		Scanner scan2 = new Scanner(System.in);
+		String lineManual = scan2.nextLine();
+		String[] elementsM = lineManual.split(",");
+		String fNManual = elementsM[0];
+		String lNManual = elementsM[1];
+		String cnManual = elementsM[2];
+		int cNumManual = Integer.parseInt(elementsM[3]);
+		conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+		manualID++;
+		System.out.println("Successfully added!");
+	}
     public void fillArray(){
         for (int r=0; r<numTables; r++){
             for (int c=0; c<pplPerTable; c++){
@@ -115,20 +135,7 @@ public class Conference {
 				}
             }
         }
-    }
-    public void manualAdd(){ //manual registration method
-		System.out.print("To add attendee, use the following format to enter info--NO SPACES: [first name],[last name],[company name],[company number]\n");
-		Scanner scan2 = new Scanner(System.in);
-		String lineManual = scan2.nextLine();
-		String[] elementsM = lineManual.split(",");
-		String fNManual = elementsM[0];
-		String lNManual = elementsM[1];
-		String cnManual = elementsM[2];
-		int cNumManual = Integer.parseInt(elementsM[3]);
-		conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
-		manualID++;
-		System.out.println("Successfully added!");
-	}	
+    }	
     public void printIDTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){

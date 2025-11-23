@@ -5,7 +5,9 @@ public class Runner {
 
     public static void main(String[] args){
         Conference c1 = new Conference(10,10);
+        c1.readFileC();
         c1.readFileA();
+        c1.manualAdd();
         c1.organizeTables();
         c1.printIDTablesArray();
         System.out.println();
