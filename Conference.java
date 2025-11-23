@@ -89,20 +89,44 @@ public class Conference {
 		System.out.print("If you wish to manually add attendees, press any key except for q. If you wish to quit, press q. \n");
 		Scanner scan2 = new Scanner(System.in);
 		if (!(scan2.nextLine()).equals("q")){
-			System.out.print("How many attendees do you wish to add?:");
-			int amtManualAttendees = Integer.parseInt(scan2.nextLine());
-			for(int i=0; i<amtManualAttendees; i++){
-				System.out.print("To add attendee, use the following format to enter info: [first name],[last name],[company name],[company number] \n");
-				String lineManual = scan2.nextLine();
-				String[] elementsM = lineManual.split(",");
-				String fNManual = elementsM[0];
-				String lNManual = elementsM[1];
-				String cnManual = elementsM[2];
-				int cNumManual = Integer.parseInt(elementsM[3]);
-				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
-				manualID++;
-				System.out.println("Successfully added!");
+			System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
+			//definite quantity
+			if (!(scan2.nextLine()).equals("NA")){
+				int amtManualAttendees = Integer.parseInt(scan2.nextLine());
+				for(int i=0; i<amtManualAttendees; i++){
+					System.out.print("To add attendee, use the following format to enter info: [first name],[last name],[company name],[company number] \n");
+					String lineManual = scan2.nextLine();
+					String[] elementsM = lineManual.split(",");
+					String fNManual = elementsM[0];
+					String lNManual = elementsM[1];
+					String cnManual = elementsM[2];
+					int cNumManual = Integer.parseInt(elementsM[3]);
+					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+					manualID++;
+					System.out.println("Successfully added!");
+				}
 			}
+			//indefinite quantity
+			else {
+				for(int i=0; i<capacity; i++){
+					System.out.print("To add attendee, use the following format to enter info: [first name],[last name],[company name],[company number] \n");
+					String lineManual = scan2.nextLine();
+					if (lineManual.equals("q")){
+						break;
+					}	
+					String[] elementsM = lineManual.split(",");
+					String fNManual = elementsM[0];
+					String lNManual = elementsM[1];
+					String cnManual = elementsM[2];
+					int cNumManual = Integer.parseInt(elementsM[3]);
+					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+					manualID++;
+					System.out.println("Successfully added!");
+					if (i==(capacity-2)){
+						System.out.println("WARNING: ONLY ONE MORE SPOT AVAILABLE!");
+					}	
+				}
+			}	
 		}	
 	}
     public void fillArray(){
