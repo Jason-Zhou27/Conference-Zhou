@@ -179,6 +179,10 @@ public class Conference {
             }
         }
     }
+    /*
+     * isValid is a method which checks if an attendee can be placed at the table by looking for 2 conditions; a person from the same company cannot be also sitting at the table (uses 2d array tablesCompNum
+     * for that purpose) & there is a vacancy present (uses tablesID for that purpose--looking for a -1); the boolean free satisfies the purpose of checking the latter condition
+    */
     public boolean isValid(int tableNum, int compNumSearch){
         boolean free = false;
         for (int c=0; c<pplPerTable; c++){
@@ -191,6 +195,10 @@ public class Conference {
         }
         return free;
     }
+    /*
+     * place is a method which places the attendee at a certain table in a vacant spot; it updates the corresponding tables arrays as well using the arguments; it exits out of the for loop
+     * once a spot is filled with break so the attendee does not populate multiple tables
+    */
     public void place(int tableNum, int compNumPlace, int iDplace, Attendee attendeePlace){
         for (int c=0; c<pplPerTable; c++){
             if (tablesID[tableNum][c]==-1){
@@ -201,6 +209,11 @@ public class Conference {
             }
         }
     }
+    /*
+     * organizeTables calls the isValid and place methods to run the task of assigning attendees to tables. It goes through each attendee with a for loop, checks each table with a for loop nested
+     * in the attendee for loop, and if a table can accomodate him/her, the attendee is placed with the place method and break is used to exit out of the nested loop (so an attendee is not placed
+     * at multiple tables)
+    */
     public void organizeTables(){
         for(int a=0; a<conferenceArray.length; a++){
             for (int t=0; t<numTables; t++){
@@ -212,7 +225,12 @@ public class Conference {
 				}
             }
         }
-    }	
+    }
+    /*
+     * printIDTablesArray uses two for loops (1 nested) to circulate through the table of IDs and print them out. 
+     * It serves a useful tool in debugging/testing but also provides useful information to the attendees to find where they are based
+     * on id.
+    */	
     public void printIDTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
@@ -221,6 +239,10 @@ public class Conference {
             System.out.print("\n");
         }
     }
+    /*
+     * printIDTablesArray uses two for loops (1 nested) to circulate through the table of compIDs and print them out. 
+     * It serves a useful tool in debugging/testing as it ensures that no company has more than 1 person at a certain table.
+    */
     public void printCompNumTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
@@ -229,6 +251,12 @@ public class Conference {
             System.out.print("\n");
         }
     }
+    /*
+     * printFirstNameTablesArray uses two for loops (1 nested) to circulate through the table of Attendees and print their respective first names out with the getFirst method found in the Attendee class.
+     * It checks if the attendee object exists in the array before using the getFirst method to prevent it from trying to use getFirst on an object that does not exist (null). If no attendee exists
+     * at a spot, it will print out NA.
+     * This method--in addition to the printIDTablesArray--helps attendees find where they are based on first name
+    */
     public void printFirstNameTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
