@@ -7,8 +7,10 @@ public class Conference {
     private int aFileSize;
     private int cFileSize;
     private int aArraySize;
+    private int cArraySize;
     private int capacity;
     private Attendee[] conferenceArray;
+    private String[][] companyArray;
     private String filenameA = "confGuests.txt"; //name of text file that stores guests
     private String filenameC = "companies.txt";
     private int[][] tablesCompNum;
@@ -22,6 +24,7 @@ public class Conference {
         pplPerTable = pPT;
         capacity = numT*pPT;
         aArraySize = (int)(numT*pPT*1.5);
+        cArraySize = (int)(numT*pPT*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
         conferenceArray = new Attendee[aArraySize];
         tablesCompNum = new int[numTables][pplPerTable];
         tablesID = new int[numTables][pplPerTable];
@@ -54,15 +57,16 @@ public class Conference {
         try {
             Scanner scan1 = new Scanner(new File(filenameC));
             cFileSize = 0;
+            s=0;
             while (scan1.hasNext()){
-                String line = scan1.nextLine();
-                String[] elements = line.split(",");
-                int id = Integer.parseInt(elements[0]);
-                String lN = elements[1];
-                String fN = elements[2];
-                int cN = Integer.parseInt(elements[3]);
-                conferenceArray[i]=new Attendee(fN, lN, id, cN);
+                String lineComp = scan1.nextLine();
+                String[] elementsComp = line.split(",");
+                String fileCompId = elements[0];
+                String fileCompName = elements[1];
+                conmpanyArray[0][s]=fileCompId;
+                companyArray[1][s]=fileCompName;
                 cFileSize++;
+                s++;
             }
         } catch (FileNotFoundException e){
             System.out.println("File not Found!");
@@ -101,25 +105,29 @@ public class Conference {
         }
     }
     public void organizeTables(){
-        for(int a=0; a<aFileSize; a++){
+        for(int a=0; a<conferenceArray.length; a++){
             for (int t=0; t<numTables; t++){
-                if (isValid(t,conferenceArray[a].getCompNum())){
-                    place(t, conferenceArray[a].getCompNum(), conferenceArray[a].getID(), conferenceArray[a]);
-                    break;
-                }
+				if (conferenceArray[a]!=null){
+					if (isValid(t,conferenceArray[a].getCompNum())){
+						place(t, conferenceArray[a].getCompNum(), conferenceArray[a].getID(), conferenceArray[a]);
+						break;
+					}
+				}
             }
         }
     }
-    public String manualAdd(){ //manual registration method
+    public void manualAdd(){ //manual registration method
 		System.out.print("To add attendee, use the following format to enter info--NO SPACES: [first name],[last name],[company name],[company number]\n");
 		Scanner scan2 = new Scanner(System.in);
 		String lineManual = scan2.nextLine();
-		String[] elementsM = line.split(",");
+		String[] elementsM = lineManual.split(",");
 		String fNManual = elementsM[0];
 		String lNManual = elementsM[1];
 		String cnManual = elementsM[2];
-		String cNumManual = elementsM[3];
+		int cNumManual = Integer.parseInt(elementsM[3]);
 		conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+		manualID++;
+		System.out.println("Successfully added!");
 	}	
     public void printIDTablesArray(){
         for (int t=0; t<numTables; t++){
