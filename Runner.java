@@ -20,6 +20,7 @@ public class Runner {
         c1.readFileC();
         c1.readFileA();
         c1.manualAdd();
+        System.out.println(c1.checkConditions());
         c1.organizeTables();
         c1.printIDTablesArray();
         System.out.println();

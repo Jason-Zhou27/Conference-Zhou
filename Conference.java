@@ -31,7 +31,7 @@ public class Conference {
 
     //constructors
     /*
-     * Conference constructor takes in arguments such as number of tables and people per tables, uses those arguments to calculate and define circumstances of the conference,
+     * Conference constructor takes in arguments such as number of tables, people per tables, and max people per table ;uses those arguments to calculate and define circumstances of the conference,
      * and fills tables arrays
     */ 
     public Conference(int numT, int pPT, int mPPC) {
@@ -228,24 +228,34 @@ public class Conference {
             }
         }
     }
+    /*
+     * checkConditions checks if there are more attendees from each company than there are supposed to be. It employs nested for loops. It goes through each company and for each company goes through
+     * each Attendee. With getCompNum method, it counts how many members each company has and if that number exceeds the threshold, that company is added to a list of companies which have too many
+     * attendees. This list along with instructions on how to handle the issue by user is then returned to be printed.
+    */
     public String checkConditions(){
 		int pplPerCompany;
+		String cMaxConditionResponse = ""; 
 		for(int c=0;c<companyArray[0].length;c++){
 			pplPerCompany=0;
 			if (companyArray[0][c]!=null){
 				for(int a=0;a<conferenceArray.length;a++){
 					if(conferenceArray[a]!=null){
-						if(companyArray[0][c]==conferenceArray[a].getCompNum){
+						if(Integer.parseInt(companyArray[0][c])==conferenceArray[a].getCompNum()){
 							pplPerCompany++;	
 						}	
 					}	
 				}	
 			}
-			if(pplPerCompany>maxpplPerCompany){
-				return "too many attendees from company " + companyArray[1][c];
+			if(pplPerCompany>maxPplPerCompany){
+				cMaxConditionResponse = cMaxConditionResponse + "too many attendees from company " + companyArray[1][c] + "\n";
 			}		
 		}
-		return "";
+		if (cMaxConditionResponse.equals("")){
+			return "";
+		} else {	
+			return "Please fix issues and then rerun program: \n" + cMaxConditionResponse + "Thanks!\n\n";
+		}
 	}	
     /*
      * printIDTablesArray uses two for loops (1 nested) to circulate through the table of IDs and print them out. 
