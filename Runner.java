@@ -16,7 +16,7 @@ public class Runner {
      * presents user with option to manually add attendees, organizes the tables, prints the Tables w/ IDs, prints the Tables w/ Company #s, and prints Tables w/ First Names
     */
     public static void main(String[] args){
-        Conference c1 = new Conference(10,10);
+        Conference c1 = new Conference(10,10,10);
         c1.readFileC();
         c1.readFileA();
         c1.manualAdd();

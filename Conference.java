@@ -14,6 +14,7 @@ public class Conference {
 	//variables
     private int numTables;
     private int pplPerTable;
+    private int maxPplPerCompany;
     private int aFileSize;
     private int cFileSize;
     private int aArraySize;
@@ -33,9 +34,10 @@ public class Conference {
      * Conference constructor takes in arguments such as number of tables and people per tables, uses those arguments to calculate and define circumstances of the conference,
      * and fills tables arrays
     */ 
-    public Conference(int numT, int pPT) {
+    public Conference(int numT, int pPT, int mPPC) {
         numTables = numT;
         pplPerTable = pPT;
+        maxPplPerCompany = mPPC;
         capacity = numT*pPT;
         aArraySize = (int)(numT*pPT*1.5);
         cArraySize = (int)(numT*pPT*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
@@ -215,7 +217,7 @@ public class Conference {
      * at multiple tables)
     */
     public void organizeTables(){
-        for(int a=0; a<conferenceArray.length; a++){
+        for(int a=0; a<capacity; a++){
             for (int t=0; t<numTables; t++){
 				if (conferenceArray[a]!=null){
 					if (isValid(t,conferenceArray[a].getCompNum())){
@@ -226,6 +228,25 @@ public class Conference {
             }
         }
     }
+    public String checkConditions(){
+		int pplPerCompany;
+		for(int c=0;c<companyArray[0].length;c++){
+			pplPerCompany=0;
+			if (companyArray[0][c]!=null){
+				for(int a=0;a<conferenceArray.length;a++){
+					if(conferenceArray[a]!=null){
+						if(companyArray[0][c]==conferenceArray[a].getCompNum){
+							pplPerCompany++;	
+						}	
+					}	
+				}	
+			}
+			if(pplPerCompany>maxpplPerCompany){
+				return "too many attendees from company " + companyArray[1][c];
+			}		
+		}
+		return "";
+	}	
     /*
      * printIDTablesArray uses two for loops (1 nested) to circulate through the table of IDs and print them out. 
      * It serves a useful tool in debugging/testing but also provides useful information to the attendees to find where they are based
