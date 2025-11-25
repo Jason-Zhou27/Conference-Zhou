@@ -91,7 +91,7 @@ public class Conference {
             int s=0;
             while (scan1.hasNext()){
                 String lineComp = scan1.nextLine();
-                if (lineComp!=""){
+                if (!lineComp.equals("")){
 					String[] elementsComp = lineComp.split(",");
 					String fileCompId = elementsComp[0];
 					String fileCompName = elementsComp[1];
@@ -111,7 +111,7 @@ public class Conference {
      * match, it returns the company name; if not, it returns NA signaling a company name was not found
     */
     public String searchCompanyName(int searchCompanyID){
-		for (int i=0; i<companyArray.length;i++){
+		for (int i=0; i<companyArray[0].length;i++){
 			if(companyArray[0][i]!=null){
 				if (Integer.parseInt(companyArray[0][i])==searchCompanyID){
 					return companyArray[1][i];
@@ -126,14 +126,15 @@ public class Conference {
 	 * If it went through all the filled columns (signified by finding the null), it will create a new company with the searchCompanyName and return the id of the new company.
 	*/
 	public int getCompanyID(String searchCompanyName){
-		for (int i=0; i<companyArray.length;i++){
+		for (int i=0; i<companyArray[0].length;i++){
 			if(companyArray[0][i]!=null){
 				if (companyArray[1][i].equals(searchCompanyName)){
 					return Integer.parseInt(companyArray[0][i]);
 				}
 			}
-			if(companyArray[0][i]!=null){
-				companyArray[0][i]= ""+ (i+1);
+			if (companyArray[0][i]==null){
+				companyArray[0][i]= String.valueOf(i+1);
+				System.out.println("creating new company is successful");
 				companyArray[1][i]=searchCompanyName;
 				return i+1;
 			}	
@@ -171,7 +172,7 @@ public class Conference {
 			}
 			//indefinite quantity
 			else {
-				for(int i=0; i<capacity; i++){
+				for(int i=aFileSize; i<capacity; i++){
 					System.out.print("Continue? If yes, press any key except for q. If not, press q. \n");
 					String lineManual = scan2.nextLine();
 					if (lineManual.equals("q")){
