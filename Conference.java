@@ -157,7 +157,7 @@ public class Conference {
 			if (!(manualAttendeeResponseNum.equals("NA"))){
 				int amtManualAttendees = Integer.parseInt(manualAttendeeResponseNum);
 				for(int i=0; i<amtManualAttendees; i++){
-					System.out.print("To add attendee, fill out the following information\nFirst Name: ");
+					System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
 					String fNManual = scan2.nextLine();
 					System.out.print("Last Name: ");
 					String lNManual = scan2.nextLine();
@@ -177,7 +177,7 @@ public class Conference {
 					if (lineManual.equals("q")){
 						break;
 					}	
-					System.out.print("To add attendee, fill out the following information\nFirst Name: ");
+					System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
 					String fNManual = scan2.nextLine();
 					System.out.print("Last Name: ");
 					String lNManual = scan2.nextLine();
