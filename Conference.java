@@ -90,13 +90,15 @@ public class Conference {
             int s=0;
             while (scan1.hasNext()){
                 String lineComp = scan1.nextLine();
-                String[] elementsComp = lineComp.split(",");
-                String fileCompId = elementsComp[0];
-                String fileCompName = elementsComp[1];
-                companyArray[0][s]=fileCompId;
-                companyArray[1][s]=fileCompName;
-                cFileSize++;
-                s++;
+                if (lineComp!=""){
+					String[] elementsComp = lineComp.split(",");
+					String fileCompId = elementsComp[0];
+					String fileCompName = elementsComp[1];
+					companyArray[0][s]=fileCompId;
+					companyArray[1][s]=fileCompName;
+					cFileSize++;
+					s++;
+				}
             }
         } catch (FileNotFoundException e){
             System.out.println("File not Found!");
