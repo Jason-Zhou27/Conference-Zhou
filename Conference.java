@@ -28,6 +28,7 @@ public class Conference {
     private int[][] tablesID;
     private Attendee[][] tablesAttendee;
     private int manualID; //gives id of manual registration
+    private int manualCID; //gives company id/num of manual registration
 
     //constructors
     /*
@@ -72,7 +73,7 @@ public class Conference {
                 aFileSize++;
                 i++;
             }
-            manualID=aFileSize+1; //not readFileA functionality; assists in finding initial id for manual add section
+            manualID=aFileSize; //not readFileA functionality; assists in finding initial id for manual add section
         } catch (FileNotFoundException e){
             System.out.println("File not Found!");
         }
@@ -120,6 +121,26 @@ public class Conference {
 		return "NA";
 	}
 	/*
+	 * getCompany ID takes in a company name as a parameter to find the corresponding company id. It looks through the 2d company id and searches for a certain company name.
+	 * If it finds the company, it returns the company num/id.
+	 * If it went through all the filled columns (signified by finding the null), it will create a new company with the searchCompanyName and return the id of the new company.
+	*/
+	public int getCompanyID(String searchCompanyName){
+		for (int i=0; i<companyArray.length;i++){
+			if(companyArray[0][i]!=null){
+				if (companyArray[1][i].equals(searchCompanyName)){
+					return Integer.parseInt(companyArray[0][i]);
+				}
+			}
+			if(companyArray[0][i]!=null){
+				companyArray[0][i]= ""+ (i+1);
+				companyArray[1][i]=searchCompanyName;
+				return i+1;
+			}	
+		}
+		return -1;
+	}
+	/*
 	 * manualAdd allows the user to interact with the program to manually register attendees that were not loaded through pre-registration. It presents the option to either add a definite
 	 * or indefinite number, which helps with convenience. To manually add attendees, the program prompts the user to enter the required info using a specific format (similar to the one in the txt file)
 	 * and uses a similar process (splitting up individual info with delimiter) to extract information to create an instantiation of the attendee object; since the id is not explicitly known by the
@@ -127,7 +148,7 @@ public class Conference {
 	 * will present the user with a notification if the attendee was successfully added or not and a warning if the max # of attendees is being approached
 	*/ 	
     public void manualAdd(){ //manual registration method
-		System.out.print("If you wish to manually add attendees, press any key except for q. If you wish to quit, press q. \n");
+		System.out.print("If you wish to manually add attendees, press any key except for q. \nIf you wish to quit, press q. \n");
 		Scanner scan2 = new Scanner(System.in);
 		if (!(scan2.nextLine()).equals("q")){
 			System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
@@ -136,13 +157,13 @@ public class Conference {
 			if (!(manualAttendeeResponseNum.equals("NA"))){
 				int amtManualAttendees = Integer.parseInt(manualAttendeeResponseNum);
 				for(int i=0; i<amtManualAttendees; i++){
-					System.out.print("To add attendee, use the following format to enter info: [first name],[last name],[company name],[company number] \n");
-					String lineManual = scan2.nextLine();
-					String[] elementsM = lineManual.split(",");
-					String fNManual = elementsM[0];
-					String lNManual = elementsM[1];
-					String cnManual = elementsM[2];
-					int cNumManual = Integer.parseInt(elementsM[3]);
+					System.out.print("To add attendee, fill out the following information\nFirst Name: ");
+					String fNManual = scan2.nextLine();
+					System.out.print("Last Name: ");
+					String lNManual = scan2.nextLine();
+					System.out.print("Company name: ");
+					String cnManual = scan2.nextLine();
+					int cNumManual = getCompanyID(cnManual);
 					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
 					manualID++;
 					System.out.println("Successfully added!");
@@ -151,16 +172,18 @@ public class Conference {
 			//indefinite quantity
 			else {
 				for(int i=0; i<capacity; i++){
-					System.out.print("To add attendee, use the following format to enter info: [first name],[last name],[company name],[company number] \n");
+					System.out.print("Continue? If yes, press any key except for q. If not, press q. \n");
 					String lineManual = scan2.nextLine();
 					if (lineManual.equals("q")){
 						break;
 					}	
-					String[] elementsM = lineManual.split(",");
-					String fNManual = elementsM[0];
-					String lNManual = elementsM[1];
-					String cnManual = elementsM[2];
-					int cNumManual = Integer.parseInt(elementsM[3]);
+					System.out.print("To add attendee, fill out the following information\nFirst Name: ");
+					String fNManual = scan2.nextLine();
+					System.out.print("Last Name: ");
+					String lNManual = scan2.nextLine();
+					System.out.print("Company name: ");
+					String cnManual = scan2.nextLine();
+					int cNumManual = getCompanyID(cnManual);
 					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
 					manualID++;
 					System.out.println("Successfully added!");
