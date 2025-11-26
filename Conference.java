@@ -29,6 +29,8 @@ public class Conference {
     private Attendee[][] tablesAttendee;
     private int manualID; //gives id of manual registration
     private int manualCID; //gives company id/num of manual registration
+    private int lenA;
+    private int lenC;
 
     //constructors
     /*
@@ -42,6 +44,8 @@ public class Conference {
         capacity = numT*pPT;
         aArraySize = (int)(numT*pPT*1.5);
         cArraySize = (int)(numT*pPT*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
+        lenA=findPlaceTens(aArraySize);
+        lenC=findPlaceTens(cArraySize);
         conferenceArray = new Attendee[aArraySize];
         companyArray = new String[2][cArraySize];
         tablesCompNum = new int[numTables][pplPerTable];
@@ -134,7 +138,7 @@ public class Conference {
 			}
 			if (companyArray[0][i]==null){
 				companyArray[0][i]= String.valueOf(i+1);
-				System.out.println("creating new company is successful");
+				System.out.println("\nCreating new company is successful");
 				companyArray[1][i]=searchCompanyName;
 				return i+1;
 			}	
@@ -282,7 +286,21 @@ public class Conference {
 		} else {	
 			return "Please fix issues and then rerun program: \n" + cMaxConditionResponse + "Thanks!\n\n";
 		}
-	}	
+	}
+	/*
+	 * findPlaceTens tracker finds the limit to which a number exist (e.g. hundreds, tens, thousands). It is used to find how many places
+	 * the aArraySize and cArraySize are to (and thus individual id and company numb/id) to therefore assist when printing it out w/ correct alignment 
+	 * in the printTables methods
+	*/
+	public int findPlaceTens(int numFindTens){
+		int n=1;
+		int tensTracker=1;
+		while (n<numFindTens){
+			n*=10;
+			tensTracker++;
+		}
+		return tensTracker;	
+	}		
     /*
      * printIDTablesArray uses two for loops (1 nested) to circulate through the table of IDs and print them out. 
      * It serves a useful tool in debugging/testing but also provides useful information to the attendees to find where they are based
@@ -291,7 +309,7 @@ public class Conference {
     public void printIDTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
-                System.out.print(tablesID[t][a] + " ");
+                System.out.printf("%" + lenA + "s", tablesID[t][a]);
             }
             System.out.print("\n");
         }
@@ -303,7 +321,7 @@ public class Conference {
     public void printCompNumTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
-                System.out.print(tablesCompNum[t][a] + " ");
+                System.out.printf("%" + lenC + "s", tablesCompNum[t][a]);
             }
             System.out.print("\n");
         }
@@ -316,12 +334,13 @@ public class Conference {
     */
     public void printFirstNameTablesArray(){
         for (int t=0; t<numTables; t++){
+            System.out.printf("%-10s", 
             for (int a=0; a<pplPerTable; a++){
                 if (tablesAttendee[t][a]!=null){
-                    System.out.print(tablesAttendee[t][a].getFirst() + " ");
+                    System.out.printf("%-10s", (tablesAttendee[t][a].getFirst()));
                 }
                 else {
-                    System.out.print("NA ");
+                    System.out.printf("%-10s", "NA");
                 }
             }
             System.out.print("\n");
