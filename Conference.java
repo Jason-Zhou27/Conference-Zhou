@@ -176,7 +176,7 @@ public class Conference {
 			}
 			//indefinite quantity
 			else {
-				for(int i=aFileSize; i<capacity; i++){
+				for(int i=aFileSize; i<aArraySize; i++){
 					System.out.print("Continue? If yes, press any key except for q. If not, press q. \n");
 					String lineManual = scan2.nextLine();
 					if (lineManual.equals("q")){
@@ -192,7 +192,7 @@ public class Conference {
 					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
 					manualID++;
 					System.out.println("\nSuccessfully added!\n\n");
-					if (i==(capacity-2)){
+					if (i==(aArraySize-2)){
 						System.out.println("WARNING: ONLY ONE MORE SPOT AVAILABLE!");
 					}	
 				}
@@ -364,6 +364,35 @@ public class Conference {
         }
     }
     //add searchPerson method
+    /*
+     * add searchPerson method uses the first and last name of a person (through scanner) to pinpoint the person's position in the tables of attendees array (w/ other details aboout the person)
+     * and if not present return an error message.
+    */
+    public String searchPerson(){
+		System.out.println("\n\n\nSearch for a person's position and details by entering his/her first and last names");
+		Scanner scanSearch = new Scanner(System.in);
+		System.out.print("Enter first name: ");
+		String fName = scanSearch.nextLine();
+		System.out.print("Enter last name: ");
+		String lName = scanSearch.nextLine();
+		String searchPersonConc = "Details for " + fName + " " + lName + "\n";
+		for (int a=0; a<numTables;a++){
+			for (int b=0; b<pplPerTable;b++){
+				if(tablesAttendee[a][b]!=null){
+					if (tablesAttendee[a][b].getFirst().equals(fName) && tablesAttendee[a][b].getLast().equals(lName)){
+						searchPersonConc = searchPersonConc + "Table: " + String.valueOf(a+1) + "\nSeat: " + String.valueOf(b+1) + "\n";
+						searchPersonConc = searchPersonConc + "Individual ID: " + tablesAttendee[a][b].getID() + "\n";
+						searchPersonConc = searchPersonConc + "Company: " + tablesAttendee[a][b].getCompany() + "\nCompany ID/Number: " + tablesAttendee[a][b].getCompNum() + "\n\n";
+					}
+				}	
+			}	
+		}
+		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){
+			return "\nError: Not Found\n\n";
+		}
+		return searchPersonConc;	
+		
+	}	
     //add grabTableInfo by # method
     
 }
