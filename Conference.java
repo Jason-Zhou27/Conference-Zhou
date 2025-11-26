@@ -307,7 +307,16 @@ public class Conference {
      * on id.
     */	
     public void printIDTablesArray(){
+        System.out.print("Seating by Individual ID ('s' signifies seat and 't' signifies table) \n\n");
+        for (int u=0; u<(1+findPlaceTens(numTables)+1);u++){
+			System.out.print(" ");
+		}	
+        for (int o=0; o<pplPerTable; o++){
+			System.out.printf("%" + lenA + "s", "s" + (o+1));
+		}	
+        System.out.println();
         for (int t=0; t<numTables; t++){
+			System.out.printf("t" + "%" + findPlaceTens(numTables) + "s ", t+1);
             for (int a=0; a<pplPerTable; a++){
                 System.out.printf("%" + lenA + "s", tablesID[t][a]);
             }
@@ -333,8 +342,16 @@ public class Conference {
      * This method--in addition to the printIDTablesArray--helps attendees find where they are based on first name
     */
     public void printFirstNameTablesArray(){
+        System.out.print("Seating by First Name ('s' signifies seat and 't' signifies table) \n\n");
+        for (int u=0; u<(1+findPlaceTens(numTables)+1);u++){
+			System.out.print(" ");
+		}	
+        for (int o=0; o<pplPerTable; o++){
+			System.out.printf("%-10s", "s" + (o+1));
+		}	
+        System.out.println();
         for (int t=0; t<numTables; t++){
-            System.out.printf("%-10s", 
+            System.out.printf("t" + "%" + findPlaceTens(numTables) + "s ", t+1); 
             for (int a=0; a<pplPerTable; a++){
                 if (tablesAttendee[t][a]!=null){
                     System.out.printf("%-10s", (tablesAttendee[t][a].getFirst()));

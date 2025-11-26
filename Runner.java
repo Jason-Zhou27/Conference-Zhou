@@ -24,7 +24,7 @@ public class Runner {
         c1.organizeTables();
         c1.printIDTablesArray();
         System.out.println();
-        c1.printCompNumTablesArray();
+        //c1.printCompNumTablesArray();
         System.out.println();
         c1.printFirstNameTablesArray();
     }
