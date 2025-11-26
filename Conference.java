@@ -138,7 +138,7 @@ public class Conference {
 			}
 			if (companyArray[0][i]==null){
 				companyArray[0][i]= String.valueOf(i+1);
-				System.out.println("\nCreating new company is successful");
+				System.out.println("\nNew company successfully created!");
 				companyArray[1][i]=searchCompanyName;
 				return i+1;
 			}	
@@ -153,7 +153,7 @@ public class Conference {
 	 * will present the user with a notification if the attendee was successfully added or not and a warning if the max # of attendees is being approached
 	*/ 	
     public void manualAdd(){ //manual registration method
-		System.out.print("If you wish to manually add attendees, press any key except for q. \nIf you wish to quit, press q. \n");
+		System.out.print("\nIf you wish to manually add attendees, press any key except for q. \nIf you wish to quit, press q. \n");
 		Scanner scan2 = new Scanner(System.in);
 		if (!(scan2.nextLine()).equals("q")){
 			System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
@@ -171,7 +171,7 @@ public class Conference {
 					int cNumManual = getCompanyID(cnManual);
 					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
 					manualID++;
-					System.out.println("Successfully added!");
+					System.out.println("\nSuccessfully added!\n\n");
 				}
 			}
 			//indefinite quantity
@@ -191,7 +191,7 @@ public class Conference {
 					int cNumManual = getCompanyID(cnManual);
 					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
 					manualID++;
-					System.out.println("Successfully added!");
+					System.out.println("\nSuccessfully added!\n\n");
 					if (i==(capacity-2)){
 						System.out.println("WARNING: ONLY ONE MORE SPOT AVAILABLE!");
 					}	
@@ -278,13 +278,13 @@ public class Conference {
 				}	
 			}
 			if(pplPerCompany>maxPplPerCompany){
-				cMaxConditionResponse = cMaxConditionResponse + "too many attendees from company " + companyArray[1][c] + "\n";
+				cMaxConditionResponse = cMaxConditionResponse + "- too many attendees from company " + companyArray[1][c] + "\n";
 			}		
 		}
 		if (cMaxConditionResponse.equals("")){
 			return "";
 		} else {	
-			return "Please fix issues and then rerun program: \n" + cMaxConditionResponse + "Thanks!\n\n";
+			return "\n\nPlease fix the following issues and then rerun program: \n\n" + cMaxConditionResponse + "\nThanks!\n\n";
 		}
 	}
 	/*
@@ -307,7 +307,7 @@ public class Conference {
      * on id.
     */	
     public void printIDTablesArray(){
-        System.out.print("Seating by Individual ID ('s' signifies seat and 't' signifies table) \n\n");
+        System.out.print("Seating by Individual ID ('s' signifies seat and 't' signifies table; -1 signifies empty spot) \n\n");
         for (int u=0; u<(1+findPlaceTens(numTables)+1);u++){
 			System.out.print(" ");
 		}	
@@ -343,7 +343,7 @@ public class Conference {
     */
     public void printFirstNameTablesArray(){
         System.out.print("Seating by First Name ('s' signifies seat and 't' signifies table) \n\n");
-        for (int u=0; u<(1+findPlaceTens(numTables)+1);u++){
+        for (int u=0; u<(1+findPlaceTens(numTables)+1);u++){ 
 			System.out.print(" ");
 		}	
         for (int o=0; o<pplPerTable; o++){
