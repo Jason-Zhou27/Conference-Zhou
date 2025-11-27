@@ -388,8 +388,6 @@ public class Conference {
 				if(conferenceArray[e]!=null){
 					if (tablesAttendee[a][b].getFirst().equals(fName) && tablesAttendee[a][b].getLast().equals(lName)){
 						searchPersonConc = "Not Seated\n";
-						searchPersonConc = searchPersonConc + "Individual ID: " + tablesAttendee[a][b].getID() + "\n";
-						searchPersonConc = searchPersonConc + "Company: " + tablesAttendee[a][b].getCompany() + "\nCompany ID/Number: " + tablesAttendee[a][b].getCompNum() + "\n\n";
 					}
 				}	
 			}
