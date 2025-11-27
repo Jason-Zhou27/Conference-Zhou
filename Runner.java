@@ -17,9 +17,11 @@ public class Runner {
      * presents user with option to manually add attendees, organizes the tables, prints the Tables w/ IDs, prints the Tables w/ Company #s, and prints Tables w/ First Names
     */
     public static void main(String[] args){
-        Conference c1 = new Conference(10,10,10);
+        Conference c1 = new Conference(10,10,10); //need to use Scanner here; temporarily (10,10,10)
         c1.readFileC();
         c1.readFileA();
+        c1.menu();
+        /*
         c1.manualAdd();
         System.out.println(c1.checkConditions());
         c1.organizeTables();
@@ -31,5 +33,6 @@ public class Runner {
         System.out.println(c1.searchPerson());
         System.out.println(c1.grabTableInfo());
         System.out.println(c1.getCompanyRoster());
+        */
     }
 }

@@ -2,7 +2,7 @@
  * Conference.java
  * @author Jason Zhou
  * @since (date) 11/19/2025
- * This class organizes the Conference by registering attendees and organizing attendees at tables
+ * This class organizes the Conference by registering attendees and organizing attendees at tables. Furthermore, it provides info to the user about the conference.
 */
 import java.io.*;
 import java.util.*;
@@ -15,10 +15,10 @@ public class Conference {
     private int numTables;
     private int pplPerTable;
     private int maxPplPerCompany;
-    private int aFileSize;
-    private int cFileSize;
-    private int aArraySize;
-    private int cArraySize;
+    private int aFileSize; //preregistration #
+    private int cFileSize; //preregistration #
+    private int aArraySize; //net
+    private int cArraySize; //net
     private int capacity;
     private Attendee[] conferenceArray;
     private String[][] companyArray;
@@ -29,8 +29,8 @@ public class Conference {
     private Attendee[][] tablesAttendee;
     private int manualID; //gives id of manual registration
     private int manualCID; //gives company id/num of manual registration
-    private int lenA;
-    private int lenC;
+    private int lenA; //determines how many tens digits to allot to Attendee ID print; helps with alignment
+    private int lenC; //determines how many tens digits to allot to Attendee ID print; helps with alignment
 
     //constructors
     /*
@@ -60,7 +60,7 @@ public class Conference {
      * Employs try and catch structure.
     */
     public void readFileA() { //loads text file of attendees into 1D array conferenceArray
-        try {
+        try { //implementing try catch was not initially clear; used throws IOException at first according to Runestone, but errors surfaced. Switched to try catch structure w/ w3schools
             Scanner scan = new Scanner(new File(filenameA));
             aFileSize = 0;
             int i = 0;
@@ -89,7 +89,7 @@ public class Conference {
      * Employs try and catch structure.
     */
     public void readFileC() {
-        try {
+        try { //implementing try catch was not initially clear; used throws IOException at first according to Runestone, but errors surfaced. Switched to try catch structure w/ w3schools
             Scanner scan1 = new Scanner(new File(filenameC));
             cFileSize = 0;
             int s=0;
@@ -137,7 +137,7 @@ public class Conference {
 				}
 			}
 			if (companyArray[0][i]==null){
-				companyArray[0][i]= String.valueOf(i+1);
+				companyArray[0][i]= String.valueOf(i+1); //credit to w3schools for String.valueOf() method
 				System.out.println("\nNew company successfully created!");
 				companyArray[1][i]=searchCompanyName;
 				return i+1;
@@ -155,7 +155,7 @@ public class Conference {
     public void manualAdd(){ //manual registration method
 		Scanner scan2 = new Scanner(System.in);
 		System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
-		//definite quantity
+		//definite quantity case
 		String manualAttendeeResponseNum = scan2.nextLine();
 		if (!(manualAttendeeResponseNum.equals("NA"))){
 			int amtManualAttendees = Integer.parseInt(manualAttendeeResponseNum);
@@ -167,18 +167,18 @@ public class Conference {
 				System.out.print("Company name: ");
 				String cnManual = scan2.nextLine();
 				int cNumManual = getCompanyID(cnManual);
-				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual); //creates new instance of Attendee on gathered info
 				manualID++;
 				System.out.println("\nSuccessfully added!\n\n");
 			}
 		}
-		//indefinite quantity
+		//indefinite quantity case
 		else {
 			for(int i=aFileSize; i<aArraySize; i++){
 				System.out.print("Continue? If yes, press any key except for q. If not, press q. \n");
 				String lineManual = scan2.nextLine();
-				if (lineManual.equals("q")){
-					break;
+				if (lineManual.equals("q")){ 
+					break; //credit to w3schools for break
 				}	
 				System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
 				String fNManual = scan2.nextLine();
@@ -187,7 +187,7 @@ public class Conference {
 				System.out.print("Company name: ");
 				String cnManual = scan2.nextLine();
 				int cNumManual = getCompanyID(cnManual);
-				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual); //creates new instance of Attendee on gathered info
 				manualID++;
 				System.out.println("\nSuccessfully added!\n\n");
 				if (i==(aArraySize-2)){
@@ -214,7 +214,7 @@ public class Conference {
      * for that purpose) & there is a vacancy present (uses tablesID for that purpose--looking for a -1); the boolean free satisfies the purpose of checking the latter condition
     */
     public boolean isValid(int tableNum, int compNumSearch){
-        boolean free = false;
+        boolean free = false; //defaults to false; modified later to be true if space found
         for (int c=0; c<pplPerTable; c++){
             if (tablesCompNum[tableNum][c]==compNumSearch){
                 return false;
@@ -235,7 +235,7 @@ public class Conference {
                 tablesCompNum[tableNum][c]=compNumPlace;
                 tablesID[tableNum][c]=iDplace;
                 tablesAttendee[tableNum][c]=attendeePlace;
-                break;
+                break; //credit to w3schools for break
             }
         }
     }
@@ -252,7 +252,7 @@ public class Conference {
 				if (conferenceArray[a]!=null){
 					if (isValid(t,conferenceArray[a].getCompNum())){
 						place(t, conferenceArray[a].getCompNum(), conferenceArray[a].getID(), conferenceArray[a]);
-						break;
+						break; //credit to w3schools for break
 					}
 				}
             }
@@ -272,12 +272,12 @@ public class Conference {
 				for(int a=0;a<conferenceArray.length;a++){
 					if(conferenceArray[a]!=null){
 						if(Integer.parseInt(companyArray[0][c])==conferenceArray[a].getCompNum()){
-							pplPerCompany++;	
+							pplPerCompany++; //counter determines # for a specific company	
 						}	
 					}	
 				}	
 			}
-			if(pplPerCompany>maxPplPerCompany){
+			if(pplPerCompany>maxPplPerCompany){ //compares counter to max allowed
 				cMaxConditionResponse = cMaxConditionResponse + "- too many attendees from company " + companyArray[1][c] + "\n";
 			}		
 		}
@@ -307,18 +307,18 @@ public class Conference {
      * on id.
     */	
     public void printIDTablesArray(){
-        System.out.print("Seating by Individual ID ('s' signifies seat and 't' signifies table; -1 signifies empty spot) \n\n");
+        System.out.print("Seating by Individual ID ('s' signifies seat and 't' signifies table; -1 signifies empty spot) \n\n"); //provides interpretation for stranger values
         for (int u=0; u<(1+findPlaceTens(numTables)+1);u++){
 			System.out.print(" ");
 		}	
         for (int o=0; o<pplPerTable; o++){
-			System.out.printf("%" + lenA + "s", "s" + (o+1));
+			System.out.printf("%" + lenA + "s", "s" + (o+1)); //credit to w3schools for text alignment
 		}	
         System.out.println();
         for (int t=0; t<numTables; t++){
-			System.out.printf("t" + "%" + findPlaceTens(numTables) + "s ", t+1);
+			System.out.printf("t" + "%" + findPlaceTens(numTables) + "s ", t+1); //credit to w3schools for text alignment
             for (int a=0; a<pplPerTable; a++){
-                System.out.printf("%" + lenA + "s", tablesID[t][a]);
+                System.out.printf("%" + lenA + "s", tablesID[t][a]); //credit to w3schools for text alignment
             }
             System.out.print("\n");
         }
@@ -330,7 +330,7 @@ public class Conference {
     public void printCompNumTablesArray(){
         for (int t=0; t<numTables; t++){
             for (int a=0; a<pplPerTable; a++){
-                System.out.printf("%" + lenC + "s", tablesCompNum[t][a]);
+                System.out.printf("%" + lenC + "s", tablesCompNum[t][a]); //credit to w3schools for text alignment
             }
             System.out.print("\n");
         }
@@ -347,17 +347,17 @@ public class Conference {
 			System.out.print(" ");
 		}	
         for (int o=0; o<pplPerTable; o++){
-			System.out.printf("%-10s", "s" + (o+1));
+			System.out.printf("%-10s", "s" + (o+1)); //credit to w3schools for text alignment
 		}	
         System.out.println();
         for (int t=0; t<numTables; t++){
-            System.out.printf("t" + "%" + findPlaceTens(numTables) + "s ", t+1); 
+            System.out.printf("t" + "%" + findPlaceTens(numTables) + "s ", t+1); //credit to w3schools for text alignment
             for (int a=0; a<pplPerTable; a++){
                 if (tablesAttendee[t][a]!=null){
-                    System.out.printf("%-10s", (tablesAttendee[t][a].getFirst()));
+                    System.out.printf("%-10s", (tablesAttendee[t][a].getFirst())); //credit to w3schools for text alignment
                 }
                 else {
-                    System.out.printf("%-10s", "NA");
+                    System.out.printf("%-10s", "NA"); //credit to w3schools for text alignment
                 }
             }
             System.out.print("\n");
@@ -368,14 +368,14 @@ public class Conference {
      * and if not, return the person's info w/o seat position. If not found anywhere, return error message.
     */
     public String searchPerson(){
-		System.out.println("\n\n\nSearch for a person's position and details by entering his/her first and last names\n\n");
+		System.out.println("\n\n\nSearch for a person's position and details by entering his/her first and last names\n\n"); //directions
 		Scanner scanSearch = new Scanner(System.in);
 		System.out.print("Enter first name: ");
 		String fName = scanSearch.nextLine();
 		System.out.print("Enter last name: ");
 		String lName = scanSearch.nextLine();
 		String searchPersonConc = "\nDetails for " + fName + " " + lName + "\n";
-		for (int a=0; a<numTables;a++){
+		for (int a=0; a<numTables;a++){ //handles seated case
 			for (int b=0; b<pplPerTable;b++){
 				if(tablesAttendee[a][b]!=null){
 					if (tablesAttendee[a][b].getFirst().equals(fName) && tablesAttendee[a][b].getLast().equals(lName)){
@@ -386,7 +386,7 @@ public class Conference {
 				}	
 			}	
 		}
-		if (searchPersonConc.equals("\nDetails for " + fName + " " + lName + "\n")){ //left off @12:39 am Thanksgiving 2025
+		if (searchPersonConc.equals("\nDetails for " + fName + " " + lName + "\n")){ //handles not seated case
 			for (int e=0; e<conferenceArray.length;e++){
 				if(conferenceArray[e]!=null){
 					if (conferenceArray[e].getFirst().equals(fName) && conferenceArray[e].getLast().equals(lName)){
@@ -397,7 +397,7 @@ public class Conference {
 				}	
 			}
 		}	
-		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){
+		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){ //if searchPersonConc is unedited/no person found --> return error message
 			return "\nError: Attendee Not Found\n\n";
 		}
 		return searchPersonConc;			
@@ -411,6 +411,7 @@ public class Conference {
 		Scanner scanTable = new Scanner(System.in);
 		System.out.print("Enter the table #: ");
 		int tableNumScan = Integer.parseInt(scanTable.nextLine());
+		//error handling; provides directions if error is found
 		if(tableNumScan<1 || tableNumScan>numTables){
 			return "error: table does not exist\nplease enter a number from 1 to " + numTables + "\nThanks\n\n";
 		}	
@@ -424,7 +425,7 @@ public class Conference {
 				grabTableInfoConc = grabTableInfoConc + "Company Name: " + tablesAttendee[tableNumScan-1][c].getCompany() + "\n";
 				grabTableInfoConc = grabTableInfoConc + "Company ID: " + tablesAttendee[tableNumScan-1][c].getCompNum() + "\n";
 				grabTableInfoConc = grabTableInfoConc + "\n\n\n";
-				occupants++;
+				occupants++; //counter keeps track of # SEATED
 			}
 			if (tablesAttendee[tableNumScan-1][c]==null){
 				grabTableInfoConc = grabTableInfoConc + "Seat " + String.valueOf(c+1) + "\n";
@@ -445,8 +446,8 @@ public class Conference {
 		for(int a=0;a<numTables;a++){
 			for(int b=0;b<pplPerTable;b++){
 				if(aSeated==tablesAttendee[a][b]){
-					seat[0]=a+1;
-					seat[1]=b+1;
+					seat[0]=a+1; //array starts at 0; +1 accounts for that fact
+					seat[1]=b+1; //array starts at 0; +1 accounts for that fact
 					return seat;
 				}	
 			}	
@@ -459,12 +460,12 @@ public class Conference {
 	 * to the concactenation of the Roster. Return the concactenation in the form of a String.
 	*/
 	public String getCompanyRoster(){
-		System.out.println("\n\nEnter the Company name to get info for that company");
+		System.out.println("\n\nEnter the Company name to get info for that company"); //directions
 		Scanner scanCompany = new Scanner(System.in);
 		System.out.print("Enter Company Name: ");
 		String compNameScan = scanCompany.nextLine();
 		String rosterConc = "Roster for Company " + compNameScan + "\nNote: 0 for table and seat indicates that person was not seated\n\n";
-		int numInComp = 0;
+		int numInComp = 0; //counter (added to concactenation) which helps user track # in company
 		for (int l=0; l<conferenceArray.length; l++){
 			if(conferenceArray[l]!=null){
 				if(compNameScan.equals(conferenceArray[l].getCompany())){
@@ -477,6 +478,7 @@ public class Conference {
 				}
 			}		
 		}
+		//no edit to rosterConc/no roster found -->return error mesage
 		if(rosterConc.equals("Roster for Company " + compNameScan + "\nNote: 0 for table and seat indicates that person was not seated\n\n")){
 			return "Error: No company found";
 		}	
@@ -529,7 +531,7 @@ public class Conference {
 					System.out.println(getCompanyRoster());
 				}
 				System.out.print("Enter a command: ");
-				lineMenu = scanMenu.nextLine();
+				lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
 			}
 		}
 	}			
