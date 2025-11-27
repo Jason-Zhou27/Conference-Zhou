@@ -153,51 +153,48 @@ public class Conference {
 	 * will present the user with a notification if the attendee was successfully added or not and a warning if the max # of attendees is being approached
 	*/ 	
     public void manualAdd(){ //manual registration method
-		System.out.print("\nIf you wish to manually add attendees, press any key except for q. \nIf you wish to quit, press q. \n");
 		Scanner scan2 = new Scanner(System.in);
-		if (!(scan2.nextLine()).equals("q")){
-			System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
-			//definite quantity
-			String manualAttendeeResponseNum = scan2.nextLine();
-			if (!(manualAttendeeResponseNum.equals("NA"))){
-				int amtManualAttendees = Integer.parseInt(manualAttendeeResponseNum);
-				for(int i=0; i<amtManualAttendees; i++){
-					System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
-					String fNManual = scan2.nextLine();
-					System.out.print("Last Name: ");
-					String lNManual = scan2.nextLine();
-					System.out.print("Company name: ");
-					String cnManual = scan2.nextLine();
-					int cNumManual = getCompanyID(cnManual);
-					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
-					manualID++;
-					System.out.println("\nSuccessfully added!\n\n");
-				}
+		System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
+		//definite quantity
+		String manualAttendeeResponseNum = scan2.nextLine();
+		if (!(manualAttendeeResponseNum.equals("NA"))){
+			int amtManualAttendees = Integer.parseInt(manualAttendeeResponseNum);
+			for(int i=0; i<amtManualAttendees; i++){
+				System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
+				String fNManual = scan2.nextLine();
+				System.out.print("Last Name: ");
+				String lNManual = scan2.nextLine();
+				System.out.print("Company name: ");
+				String cnManual = scan2.nextLine();
+				int cNumManual = getCompanyID(cnManual);
+				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+				manualID++;
+				System.out.println("\nSuccessfully added!\n\n");
 			}
-			//indefinite quantity
-			else {
-				for(int i=aFileSize; i<aArraySize; i++){
-					System.out.print("Continue? If yes, press any key except for q. If not, press q. \n");
-					String lineManual = scan2.nextLine();
-					if (lineManual.equals("q")){
-						break;
-					}	
-					System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
-					String fNManual = scan2.nextLine();
-					System.out.print("Last Name: ");
-					String lNManual = scan2.nextLine();
-					System.out.print("Company name: ");
-					String cnManual = scan2.nextLine();
-					int cNumManual = getCompanyID(cnManual);
-					conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
-					manualID++;
-					System.out.println("\nSuccessfully added!\n\n");
-					if (i==(aArraySize-2)){
-						System.out.println("WARNING: ONLY ONE MORE SPOT AVAILABLE!");
-					}	
-				}
-			}	
-		}	
+		}
+		//indefinite quantity
+		else {
+			for(int i=aFileSize; i<aArraySize; i++){
+				System.out.print("Continue? If yes, press any key except for q. If not, press q. \n");
+				String lineManual = scan2.nextLine();
+				if (lineManual.equals("q")){
+					break;
+				}	
+				System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
+				String fNManual = scan2.nextLine();
+				System.out.print("Last Name: ");
+				String lNManual = scan2.nextLine();
+				System.out.print("Company name: ");
+				String cnManual = scan2.nextLine();
+				int cNumManual = getCompanyID(cnManual);
+				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual);
+				manualID++;
+				System.out.println("\nSuccessfully added!\n\n");
+				if (i==(aArraySize-2)){
+					System.out.println("WARNING: ONLY ONE MORE SPOT AVAILABLE!");
+				}	
+			}
+		}		
 	}
 	/*
 	 * fillArray is a method which fills the tablesCompNum 2d array and the tablesID 2d array w/ -1s, which is a placeholder to signify--when the arrays are being searched--that there is a vacancy
@@ -386,6 +383,17 @@ public class Conference {
 				}	
 			}	
 		}
+		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){ //left off @12:39 am Thanksgiving 2025
+			for (int e=0; e<conferenceArray.length;e++){
+				if(conferenceArray[e]!=null){
+					if (tablesAttendee[a][b].getFirst().equals(fName) && tablesAttendee[a][b].getLast().equals(lName)){
+						searchPersonConc = "Not Seated\n";
+						searchPersonConc = searchPersonConc + "Individual ID: " + tablesAttendee[a][b].getID() + "\n";
+						searchPersonConc = searchPersonConc + "Company: " + tablesAttendee[a][b].getCompany() + "\nCompany ID/Number: " + tablesAttendee[a][b].getCompNum() + "\n\n";
+					}
+				}	
+			}
+		}	
 		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){
 			return "\nError: Attendee Not Found\n\n";
 		}
@@ -472,30 +480,54 @@ public class Conference {
 		return rosterConc;	
 		
 	}
-	public void Menu(){
-		System.out.println("Welcome to the Conference application! Navigate this program with the following commands.\n\n");
-		System.out.println("To manually add, press m\n");
-		System.out.println("To organize the tables, press o\n");
-		System.out.println("To print the table of IDs, press i\n");
-		System.out.println("To print the table of First Names, press f\n");
-		System.out.println("To search for a person's info, press p\n");
-		System.out.println("To grab a table's info, press t\n");
-		System.out.println("To get a Company's roster, press c\n");
-		System.out.println("To quit, type QUIT in all caps\n\n");
-		System.out.print("Enter a command: ");
+	/*
+	 * menu method is meant to continually prompt the user for a certain action. It provides the user with directions, and asks the user
+	 * if he/she wants to proceed. If not, the program ends, If yes, the program will execute a while do with a prompt each time, 
+	 * matching the user's response with a certain method. However, if the user's prompt is QUIT, the loop ends and the program ends.
+	*/
+	public void menu(){
+		System.out.print("\n\n\nWelcome to the Conference application! Navigate this program with the following commands.\n\n");
+		System.out.print("To manually add, press m\n");
+		System.out.print("To organize the tables, press o\n");
+		System.out.print("To print the table of IDs, press i\n");
+		System.out.print("To print the table of First Names, press f\n");
+		System.out.print("To search for a person's info, press s\n");
+		System.out.print("To grab a table's info, press t\n");
+		System.out.print("To get a Company's roster, press c\n");
+		System.out.print("To quit, type QUIT in all caps\n\n");
+		System.out.print("Do you want to proceed, y/n: ");
 		Scanner scanMenu = new Scanner(System.in);
-		
-		c1.manualAdd();
-        System.out.println(c1.checkConditions());
-        c1.organizeTables();
-        c1.printIDTablesArray();
-        System.out.println();
-        //c1.printCompNumTablesArray();
-        System.out.println();
-        c1.printFirstNameTablesArray();
-        System.out.println(c1.searchPerson());
-        System.out.println(c1.grabTableInfo());
-        System.out.println(c1.getCompanyRoster());
+		String lineMenu = scanMenu.nextLine();
+		if (!lineMenu.equals("n") && lineMenu.equals("y")){	
+			while(!lineMenu.equals("QUIT")){
+				if(lineMenu.equals("m")){
+					manualAdd();
+					System.out.println(checkConditions());
+				}
+				if(lineMenu.equals("o")){
+					organizeTables();
+				}
+				if(lineMenu.equals("i")){
+					printIDTablesArray();
+					System.out.println();
+				}
+				if(lineMenu.equals("f")){
+					printFirstNameTablesArray();
+					System.out.println();
+				}
+				if(lineMenu.equals("s")){
+					System.out.println(searchPerson());
+				}
+				if(lineMenu.equals("t")){
+					System.out.println(grabTableInfo());
+				}
+				if(lineMenu.equals("c")){
+					System.out.println(getCompanyRoster());
+				}
+				System.out.print("Enter a command: ");
+				lineMenu = scanMenu.nextLine();
+			}
+		}
 	}			
     
 }
