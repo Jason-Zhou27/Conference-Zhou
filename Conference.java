@@ -387,7 +387,7 @@ public class Conference {
 			}	
 		}
 		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){
-			return "\nError: Not Found\n\n";
+			return "\nError: Attendee Not Found\n\n";
 		}
 		return searchPersonConc;			
 	}	
@@ -423,6 +423,24 @@ public class Conference {
 		return grabTableInfoConc;
 	}
 	/*
+	 * getSeatPlacement method uses the attendee object (as an argument) along with a for loop to search through the tablesAttendee array to see if it is there. 
+	 * The method will return a 1d array of length 1 with index 0 communicating table and index 1 ocmmunicating seat.
+	*/
+	public int[] getSeatPlacement(Attendee aSeated){
+		int[] seat =new int[2];
+		for(int a=0;a<numTables;a++){
+			for(int b=0;b<pplPerTable;b++){
+				if(aSeated==tablesAttendee[a][b]){
+					seat[0]=a+1;
+					seat[1]=b+1;
+					return seat;
+				}	
+			}	
+		}
+		return seat;	
+	}	
+	
+	/*
 	 * getCompanyRoster uses the name of the company being searched to compare to the Attendee's companies. If those two strings are equal, add the person's details
 	 * to the concactenation of the Roster. Return the concactenation in the form of a String.
 	*/
@@ -431,16 +449,23 @@ public class Conference {
 		Scanner scanCompany = new Scanner(System.in);
 		System.out.print("Enter Company Name: ");
 		String compNameScan = scanCompany.nextLine();
-		String rosterConc = "Roster for Company " + compNameScan + "\n\n";
+		String rosterConc = "Roster for Company " + compNameScan + "\nNote: 0 for table and seat indicates that person was not seated\n\n";
+		int numInComp = 0;
 		for (int l=0; l<conferenceArray.length; l++){
 			if(conferenceArray[l]!=null){
 				if(compNameScan.equals(conferenceArray[l].getCompany())){
+					numInComp++;
+					rosterConc = rosterConc + numInComp + ".\n";
 					rosterConc = rosterConc + "Name: " + conferenceArray[l].getFirst() + " " + conferenceArray[l].getLast() + "\n";
-					rosterConc = rosterConc + "ID: " + conferenceArray[l].getID();
+					rosterConc = rosterConc + "ID: " + conferenceArray[l].getID() + "\n";
+					rosterConc = rosterConc + "Table: " + getSeatPlacement(conferenceArray[l])[0] + "\nSeat: " + getSeatPlacement(conferenceArray[l])[1];
 					rosterConc = rosterConc + "\n\n\n";
 				}
 			}		
 		}
+		if(rosterConc.equals("Roster for Company " + compNameScan + "\nNote: 0 for table and seat indicates that person was not seated\n\n")){
+			return "Error: No company found";
+		}	
 		return rosterConc;	
 		
 	}		
