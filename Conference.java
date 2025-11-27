@@ -247,7 +247,7 @@ public class Conference {
     */
     public void organizeTables(){
 		fillArray();
-        for(int a=0; a<capacity; a++){
+        for(int a=0; a<conferenceArray.length; a++){
             for (int t=0; t<numTables; t++){
 				if (conferenceArray[a]!=null){
 					if (isValid(t,conferenceArray[a].getCompNum())){
