@@ -30,5 +30,6 @@ public class Runner {
         c1.printFirstNameTablesArray();
         System.out.println(c1.searchPerson());
         System.out.println(c1.grabTableInfo());
+        System.out.println(c1.getCompanyRoster());
     }
 }

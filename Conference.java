@@ -395,6 +395,7 @@ public class Conference {
      * grabTableInfo method uses the table number (through Scanner) to access information of the table and print the info out through a for loop.
     */
     public String grabTableInfo(){
+		//needs error handling
 		System.out.println("\n\nEnter the table # to get info for that table");
 		Scanner scanTable = new Scanner(System.in);
 		System.out.print("Enter the table #: ");
@@ -420,6 +421,28 @@ public class Conference {
 		}
 		grabTableInfoConc = grabTableInfoConc + "# of Occupants: " + occupants + "\n\n\n";
 		return grabTableInfoConc;
-	}	
+	}
+	/*
+	 * getCompanyRoster uses the name of the company being searched to compare to the Attendee's companies. If those two strings are equal, add the person's details
+	 * to the concactenation of the Roster. Return the concactenation in the form of a String.
+	*/
+	public String getCompanyRoster(){
+		System.out.println("\n\nEnter the Company name to get info for that company");
+		Scanner scanCompany = new Scanner(System.in);
+		System.out.print("Enter Company Name: ");
+		String compNameScan = scanCompany.nextLine();
+		String rosterConc = "Roster for Company " + compNameScan + "\n\n";
+		for (int l=0; l<conferenceArray.length; l++){
+			if(conferenceArray[l]!=null){
+				if(compNameScan.equals(conferenceArray[l].getCompany())){
+					rosterConc = rosterConc + "Name: " + conferenceArray[l].getFirst() + " " + conferenceArray[l].getLast() + "\n";
+					rosterConc = rosterConc + "ID: " + conferenceArray[l].getID();
+					rosterConc = rosterConc + "\n\n\n";
+				}
+			}		
+		}
+		return rosterConc;	
+		
+	}		
     
 }
