@@ -4,6 +4,7 @@
  * @since (date) 11/19/2025
  * This class is the Runner/Main/Tester class which runs the program
 */
+import java.util.*;
 /*
  * Runner class runs the program by calling Conference constructor and using its methods
 */
@@ -27,5 +28,7 @@ public class Runner {
         //c1.printCompNumTablesArray();
         System.out.println();
         c1.printFirstNameTablesArray();
+        System.out.println(c1.searchPerson());
+        System.out.println(c1.grabTableInfo());
     }
 }

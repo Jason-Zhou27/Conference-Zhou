@@ -363,7 +363,6 @@ public class Conference {
             System.out.print("\n");
         }
     }
-    //add searchPerson method
     /*
      * add searchPerson method uses the first and last name of a person (through scanner) to pinpoint the person's position in the tables of attendees array (w/ other details aboout the person)
      * and if not present return an error message.
@@ -390,9 +389,37 @@ public class Conference {
 		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){
 			return "\nError: Not Found\n\n";
 		}
-		return searchPersonConc;	
-		
+		return searchPersonConc;			
 	}	
-    //add grabTableInfo by # method
+    /*
+     * grabTableInfo method uses the table number (through Scanner) to access information of the table and print the info out through a for loop.
+    */
+    public String grabTableInfo(){
+		System.out.println("\n\nEnter the table # to get info for that table");
+		Scanner scanTable = new Scanner(System.in);
+		System.out.print("Enter the table #: ");
+		int tableNumScan = Integer.parseInt(scanTable.nextLine());
+		int occupants = 0;
+		String grabTableInfoConc = "Details for Table #"+ tableNumScan + "\n\n";
+		for (int c=0; c<pplPerTable; c++){
+			if (tablesAttendee[tableNumScan-1][c]!=null){
+				grabTableInfoConc = grabTableInfoConc + "Seat " + String.valueOf(c+1) + "\n";
+				grabTableInfoConc = grabTableInfoConc + "Name: " + tablesAttendee[tableNumScan-1][c].getFirst()+ " " +tablesAttendee[tableNumScan-1][c].getLast() + "\n";
+				grabTableInfoConc = grabTableInfoConc + "Individual ID: " + tablesAttendee[tableNumScan-1][c].getID() + "\n";
+				grabTableInfoConc = grabTableInfoConc + "Company Name: " + tablesAttendee[tableNumScan-1][c].getCompany() + "\n";
+				grabTableInfoConc = grabTableInfoConc + "Company ID: " + tablesAttendee[tableNumScan-1][c].getCompNum() + "\n";
+				grabTableInfoConc = grabTableInfoConc + "\n\n\n";
+				occupants++;
+			}
+			if (tablesAttendee[tableNumScan-1][c]==null){
+				grabTableInfoConc = grabTableInfoConc + "Seat " + String.valueOf(c+1) + "\n";
+				grabTableInfoConc = grabTableInfoConc + "EMPTY SEAT";
+				grabTableInfoConc = grabTableInfoConc + "\n\n\n";
+			}
+			
+		}
+		grabTableInfoConc = grabTableInfoConc + "# of Occupants: " + occupants + "\n\n\n";
+		return grabTableInfoConc;
+	}	
     
 }
