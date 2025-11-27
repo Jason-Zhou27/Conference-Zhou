@@ -205,6 +205,7 @@ public class Conference {
             for (int c=0; c<pplPerTable; c++){
                 tablesCompNum[r][c]=-1;
                 tablesID[r][c]=-1;
+                tablesAttendee[r][c]=null;
             }
         }
     }
@@ -239,11 +240,13 @@ public class Conference {
         }
     }
     /*
-     * organizeTables calls the isValid and place methods to run the task of assigning attendees to tables. It goes through each attendee with a for loop, checks each table with a for loop nested
+     * organizeTables calls the isValid and place methods to run the task of assigning attendees to tables. It first resets all the arrays of the tables
+     * so it does not place the attendees already placed twiced. It goes through each attendee with a for loop, checks each table with a for loop nested
      * in the attendee for loop, and if a table can accomodate him/her, the attendee is placed with the place method and break is used to exit out of the nested loop (so an attendee is not placed
      * at multiple tables)
     */
     public void organizeTables(){
+		fillArray();
         for(int a=0; a<capacity; a++){
             for (int t=0; t<numTables; t++){
 				if (conferenceArray[a]!=null){
@@ -362,16 +365,16 @@ public class Conference {
     }
     /*
      * add searchPerson method uses the first and last name of a person (through scanner) to pinpoint the person's position in the tables of attendees array (w/ other details aboout the person)
-     * and if not present return an error message.
+     * and if not, return the person's info w/o seat position. If not found anywhere, return error message.
     */
     public String searchPerson(){
-		System.out.println("\n\n\nSearch for a person's position and details by entering his/her first and last names");
+		System.out.println("\n\n\nSearch for a person's position and details by entering his/her first and last names\n\n");
 		Scanner scanSearch = new Scanner(System.in);
 		System.out.print("Enter first name: ");
 		String fName = scanSearch.nextLine();
 		System.out.print("Enter last name: ");
 		String lName = scanSearch.nextLine();
-		String searchPersonConc = "Details for " + fName + " " + lName + "\n";
+		String searchPersonConc = "\nDetails for " + fName + " " + lName + "\n";
 		for (int a=0; a<numTables;a++){
 			for (int b=0; b<pplPerTable;b++){
 				if(tablesAttendee[a][b]!=null){
@@ -383,11 +386,13 @@ public class Conference {
 				}	
 			}	
 		}
-		if (searchPersonConc.equals("Details for " + fName + " " + lName + "\n")){ //left off @12:39 am Thanksgiving 2025
+		if (searchPersonConc.equals("\nDetails for " + fName + " " + lName + "\n")){ //left off @12:39 am Thanksgiving 2025
 			for (int e=0; e<conferenceArray.length;e++){
 				if(conferenceArray[e]!=null){
-					if (tablesAttendee[a][b].getFirst().equals(fName) && tablesAttendee[a][b].getLast().equals(lName)){
+					if (conferenceArray[e].getFirst().equals(fName) && conferenceArray[e].getLast().equals(lName)){
 						searchPersonConc = "Not Seated\n";
+						searchPersonConc = searchPersonConc + "Individual ID: " + conferenceArray[e].getID() + "\n";
+						searchPersonConc = searchPersonConc + "Company: " + conferenceArray[e].getCompany() + "\nCompany ID/Number: " + conferenceArray[e].getCompNum() + "\n\n";
 					}
 				}	
 			}
@@ -504,6 +509,7 @@ public class Conference {
 				}
 				if(lineMenu.equals("o")){
 					organizeTables();
+					System.out.println("\nOrganized!\n\n");
 				}
 				if(lineMenu.equals("i")){
 					printIDTablesArray();
