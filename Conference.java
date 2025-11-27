@@ -400,6 +400,9 @@ public class Conference {
 		Scanner scanTable = new Scanner(System.in);
 		System.out.print("Enter the table #: ");
 		int tableNumScan = Integer.parseInt(scanTable.nextLine());
+		if(tableNumScan<1 || tableNumScan>numTables){
+			return "error: table does not exist\nplease enter a number from 1 to " + numTables + "\nThanks\n\n";
+		}	
 		int occupants = 0;
 		String grabTableInfoConc = "Details for Table #"+ tableNumScan + "\n\n";
 		for (int c=0; c<pplPerTable; c++){
@@ -468,6 +471,31 @@ public class Conference {
 		}	
 		return rosterConc;	
 		
-	}		
+	}
+	public void Menu(){
+		System.out.println("Welcome to the Conference application! Navigate this program with the following commands.\n\n");
+		System.out.println("To manually add, press m\n");
+		System.out.println("To organize the tables, press o\n");
+		System.out.println("To print the table of IDs, press i\n");
+		System.out.println("To print the table of First Names, press f\n");
+		System.out.println("To search for a person's info, press p\n");
+		System.out.println("To grab a table's info, press t\n");
+		System.out.println("To get a Company's roster, press c\n");
+		System.out.println("To quit, type QUIT in all caps\n\n");
+		System.out.print("Enter a command: ");
+		Scanner scanMenu = new Scanner(System.in);
+		
+		c1.manualAdd();
+        System.out.println(c1.checkConditions());
+        c1.organizeTables();
+        c1.printIDTablesArray();
+        System.out.println();
+        //c1.printCompNumTablesArray();
+        System.out.println();
+        c1.printFirstNameTablesArray();
+        System.out.println(c1.searchPerson());
+        System.out.println(c1.grabTableInfo());
+        System.out.println(c1.getCompanyRoster());
+	}			
     
 }
