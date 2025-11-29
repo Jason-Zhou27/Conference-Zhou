@@ -247,16 +247,27 @@ public class Conference {
     */
     public void organizeTables(){
 		fillArray();
+		boolean attendeePlaced;
+		int numNotPlaced = 0;
+		String oConc = "";
         for(int a=0; a<conferenceArray.length; a++){
+            attendeePlaced = false;
             for (int t=0; t<numTables; t++){
 				if (conferenceArray[a]!=null){
 					if (isValid(t,conferenceArray[a].getCompNum())){
 						place(t, conferenceArray[a].getCompNum(), conferenceArray[a].getID(), conferenceArray[a]);
+						attendeePlaced = true;
 						break; //credit to w3schools for break
 					}
 				}
             }
+            if(attendeePlaced==false && conferenceArray[a]!=null){
+				numNotPlaced++;
+				oConc = oConc + "\n\n- " + conferenceArray[a].getFirst() + " " + conferenceArray[a].getLast() + " from " + conferenceArray[a].getCompany() + " was not seated due to lack of availability";		
+			}	
         }
+        oConc = "\n\nOrganized!\n" + oConc + "\n\n";
+        System.out.println("\n\n" + oConc);
     }
     /*
      * checkConditions checks if there are more attendees from each company than there are supposed to be. It employs nested for loops. It goes through each company and for each company goes through
@@ -511,7 +522,6 @@ public class Conference {
 				}
 				if(lineMenu.equals("o")){
 					organizeTables();
-					System.out.println("\nOrganized!\n\n");
 				}
 				if(lineMenu.equals("i")){
 					printIDTablesArray();
@@ -535,5 +545,5 @@ public class Conference {
 			}
 		}
 	}			
-    
+ 
 }
