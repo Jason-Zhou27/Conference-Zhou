@@ -511,39 +511,35 @@ public class Conference {
 		System.out.print("To grab a table's info, press t\n");
 		System.out.print("To get a Company's roster, press c\n");
 		System.out.print("To quit, type QUIT in all caps\n\n");
-		System.out.print("Do you want to proceed, y/n: ");
 		Scanner scanMenu = new Scanner(System.in);
-		String lineMenu = scanMenu.nextLine();
-		if (!lineMenu.equals("n") && lineMenu.equals("y")){	
-			while(!lineMenu.equals("QUIT")){
-				if(lineMenu.equals("m")){
-					manualAdd();
-					System.out.println(checkConditions());
-				}
-				if(lineMenu.equals("o")){
-					organizeTables();
-				}
-				if(lineMenu.equals("i")){
-					printIDTablesArray();
-					System.out.println();
-				}
-				if(lineMenu.equals("f")){
-					printFirstNameTablesArray();
-					System.out.println();
-				}
-				if(lineMenu.equals("s")){
-					System.out.println(searchPerson());
-				}
-				if(lineMenu.equals("t")){
-					System.out.println(grabTableInfo());
-				}
-				if(lineMenu.equals("c")){
-					System.out.println(getCompanyRoster());
-				}
-				System.out.print("Enter a command: ");
-				lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
+		String lineMenu = "";
+		while(!lineMenu.equals("QUIT")){
+			if(lineMenu.equals("m")){
+				manualAdd();
+				System.out.println(checkConditions());
 			}
+			if(lineMenu.equals("o")){
+				organizeTables();
+			}
+			if(lineMenu.equals("i")){
+				printIDTablesArray();
+				System.out.println();
+			}
+			if(lineMenu.equals("f")){
+				printFirstNameTablesArray();
+				System.out.println();
+			}
+			if(lineMenu.equals("s")){
+				System.out.println(searchPerson());
+			}
+			if(lineMenu.equals("t")){
+				System.out.println(grabTableInfo());
+			}
+			if(lineMenu.equals("c")){
+				System.out.println(getCompanyRoster());
+			}
+			System.out.print("Enter a command: ");
+			lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
 		}
-	}			
- 
+	}				
 }
