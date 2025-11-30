@@ -33,11 +33,35 @@ public class Conference {
     private int lenC; //determines how many tens digits to allot to Attendee ID print; helps with alignment
 
     //constructors
+    
+    public Conference() {
+        System.out.println("\n\nWelcome to the Conference program. Please fill out the following information to get started.\n");
+        Scanner scanC = new Scanner(System.in);
+        System.out.println("# of tables for seating: ");
+        numTables = Integer.parseInt(scanC.nextLine());
+        System.out.println("# of people per table: ");
+        pplPerTable = Integer.parseInt(scanC.nextLine());
+        System.out.println("Max # of people from each company: ");
+        maxPplPerCompany = Integer.parseInt(scanC.nextLine());
+        capacity = numT*pPT;
+        aArraySize = (int)(numT*pPT*1.5);
+        cArraySize = (int)(numT*pPT*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
+        lenA=findPlaceTens(aArraySize);
+        lenC=findPlaceTens(cArraySize);
+        conferenceArray = new Attendee[aArraySize];
+        companyArray = new String[2][cArraySize];
+        tablesCompNum = new int[numTables][pplPerTable];
+        tablesID = new int[numTables][pplPerTable];
+        tablesAttendee = new Attendee[numTables][pplPerTable];
+        fillArray();
+    }
     /*
-     * Conference constructor takes in arguments such as number of tables, people per tables, and max people per table ;uses those arguments to calculate and define circumstances of the conference,
-     * and fills tables arrays
+     * Conference constructor gives welcome and takes in arguments such as number of tables, people per tables, and max people per table;
+     * uses those arguments to calculate and define circumstances of the conference, and fills tables arrays. This constructor was used 
+     * for testing and creation; probably retired as of 11/29/2025
     */ 
     public Conference(int numT, int pPT, int mPPC) {
+		System.out.println("\n\nWelcome to the Conference program.\n");
         numTables = numT;
         pplPerTable = pPT;
         maxPplPerCompany = mPPC;
@@ -53,6 +77,7 @@ public class Conference {
         tablesAttendee = new Attendee[numTables][pplPerTable];
         fillArray();
     }
+    
     //methods
     /*
      * readFileA reads the attendee file with a Scanner; it takes in each line of info, extracts the individual elements using the comma delimiter, and constructs Attendee objects using
@@ -502,7 +527,7 @@ public class Conference {
 	 * matching the user's response with a certain method. However, if the user's prompt is QUIT, the loop ends and the program ends.
 	*/
 	public void menu(){
-		System.out.print("\n\n\nWelcome to the Conference application! Navigate this program with the following commands.\n\n");
+		System.out.print("\n\n\nNavigate this program with the following commands.\n\n");
 		System.out.print("To manually add, press m\n");
 		System.out.print("To organize the tables, press o\n");
 		System.out.print("To print the table of IDs, press i\n");
