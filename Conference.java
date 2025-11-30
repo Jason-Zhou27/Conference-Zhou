@@ -542,6 +542,7 @@ public class Conference {
 		System.out.print("To search for a person's info, press s\n");
 		System.out.print("To grab a table's info, press t\n");
 		System.out.print("To get a Company's roster, press c\n");
+		//System.out.print("To automatically fix issues, type fix\n");
 		System.out.print("To quit, type QUIT in all caps\n\n");
 		Scanner scanMenu = new Scanner(System.in);
 		String lineMenu = "";
@@ -569,6 +570,9 @@ public class Conference {
 			if(lineMenu.equals("c")){
 				System.out.println(getCompanyRoster());
 			}
+			if(lineMenu.equals("fix")){
+				//fix();
+			}
 			System.out.println("\n" + checkConditions() + "\n");
 			System.out.print("Enter a command: ");
 			lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
@@ -592,12 +596,16 @@ public class Conference {
 				}	
 			}
 			if(pplPerCompany>maxPplPerCompany){ //compares counter to max allowed
+				pplPerCompany=0;
 				for(int a=0;a<conferenceArray.length;a++){
 					if(conferenceArray[a]!=null){
 						if(Integer.parseInt(companyArray[0][c])==conferenceArray[a].getCompNum()){
 							pplPerCompany++; //counter determines # for a specific company	
 						}	
-					}	
+					}
+					if(pplPerCompany>maxPplPerCompany){
+						conferenceArray[a]=null;
+					}		
 				}
 			}		
 		}
