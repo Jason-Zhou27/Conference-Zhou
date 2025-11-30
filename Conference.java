@@ -186,7 +186,7 @@ public class Conference {
 	*/ 	
     public void manualAdd(){ //manual registration method
 		Scanner scan2 = new Scanner(System.in);
-		System.out.print("How many attendees do you wish to add? If the amount is indefinite, type NA:");
+		System.out.print("\nHow many attendees do you wish to add? If the amount is indefinite, type NA:");
 		//definite quantity case
 		String manualAttendeeResponseNum = scan2.nextLine();
 		if (!(manualAttendeeResponseNum.equals("NA"))){
@@ -548,7 +548,6 @@ public class Conference {
 		while(!lineMenu.equals("QUIT")){
 			if(lineMenu.equals("m")){
 				manualAdd();
-				System.out.println(checkConditions());
 			}
 			if(lineMenu.equals("o")){
 				organizeTables();
@@ -570,6 +569,7 @@ public class Conference {
 			if(lineMenu.equals("c")){
 				System.out.println(getCompanyRoster());
 			}
+			System.out.println("\n" + checkConditions() + "\n");
 			System.out.print("Enter a command: ");
 			lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
 		}
