@@ -32,8 +32,12 @@ public class Conference {
     private int lenA; //determines how many tens digits to allot to Attendee ID print; helps with alignment
     private int lenC; //determines how many tens digits to allot to Attendee ID print; helps with alignment
 
-    //constructors
+    //constructors (overloaded)
     
+    /*
+     * Conference constructor gives welcome and takes in info such as number of tables, people per tables, and max people per table through prompts + scanner object;
+     * uses info to calculate and define circumstances of the conference, and fills tables arrays. This constructor is used by user.
+    */
     public Conference() {
         System.out.println("\n\nWelcome to the Conference program. Please fill out the following information to get started.\n");
         Scanner scanC = new Scanner(System.in);
@@ -43,9 +47,9 @@ public class Conference {
         pplPerTable = Integer.parseInt(scanC.nextLine());
         System.out.println("Max # of people from each company: ");
         maxPplPerCompany = Integer.parseInt(scanC.nextLine());
-        capacity = numT*pPT;
-        aArraySize = (int)(numT*pPT*1.5);
-        cArraySize = (int)(numT*pPT*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
+        capacity = numTables*pplPerTable;
+        aArraySize = (int)(numTables*pplPerTable*1.5);
+        cArraySize = (int)(numTables*pplPerTable*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
         lenA=findPlaceTens(aArraySize);
         lenC=findPlaceTens(cArraySize);
         conferenceArray = new Attendee[aArraySize];
@@ -59,7 +63,9 @@ public class Conference {
      * Conference constructor gives welcome and takes in arguments such as number of tables, people per tables, and max people per table;
      * uses those arguments to calculate and define circumstances of the conference, and fills tables arrays. This constructor was used 
      * for testing and creation; probably retired as of 11/29/2025
-    */ 
+    */
+    
+    /* 
     public Conference(int numT, int pPT, int mPPC) {
 		System.out.println("\n\nWelcome to the Conference program.\n");
         numTables = numT;
@@ -77,6 +83,7 @@ public class Conference {
         tablesAttendee = new Attendee[numTables][pplPerTable];
         fillArray();
     }
+    */
     
     //methods
     /*
@@ -500,7 +507,7 @@ public class Conference {
 		Scanner scanCompany = new Scanner(System.in);
 		System.out.print("Enter Company Name: ");
 		String compNameScan = scanCompany.nextLine();
-		String rosterConc = "Roster for Company " + compNameScan + "\nNote: 0 for table and seat indicates that person was not seated\n\n";
+		String rosterConc = "\n\nRoster for Company " + compNameScan + "\nCompany # " + getCompanyID(compNameScan) + "\nNote: 0 for table and seat indicates that person was not seated\n\n";
 		int numInComp = 0; //counter (added to concactenation) which helps user track # in company
 		for (int l=0; l<conferenceArray.length; l++){
 			if(conferenceArray[l]!=null){
