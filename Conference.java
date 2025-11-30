@@ -573,5 +573,33 @@ public class Conference {
 			System.out.print("Enter a command: ");
 			lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
 		}
-	}				
+	}
+	/*
+	 * fix method attempts to fix any issues that were encountered with checkConditions. In particular, if any company had an excess amount of companies
+	 * the fix method would remove an attendee from that company
+	*/
+	public void fix(){
+		int pplPerCompany;
+		for(int c=0;c<companyArray[0].length;c++){
+			pplPerCompany=0;
+			if (companyArray[0][c]!=null){
+				for(int a=0;a<conferenceArray.length;a++){
+					if(conferenceArray[a]!=null){
+						if(Integer.parseInt(companyArray[0][c])==conferenceArray[a].getCompNum()){
+							pplPerCompany++; //counter determines # for a specific company	
+						}	
+					}	
+				}	
+			}
+			if(pplPerCompany>maxPplPerCompany){ //compares counter to max allowed
+				for(int a=0;a<conferenceArray.length;a++){
+					if(conferenceArray[a]!=null){
+						if(Integer.parseInt(companyArray[0][c])==conferenceArray[a].getCompNum()){
+							pplPerCompany++; //counter determines # for a specific company	
+						}	
+					}	
+				}
+			}		
+		}
+	}					
 }
