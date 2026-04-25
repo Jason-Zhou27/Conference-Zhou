@@ -39,7 +39,8 @@ public class Conference {
      * uses info to calculate and define circumstances of the conference, and fills tables arrays. This constructor is used by user.
     */
     public Conference() {
-        System.out.println("\n\nWelcome to the Conference program. Please fill out the following information to get started.\n");
+        clear();
+        System.out.print(formatBorder("Welcome to the Conference program. Please fill out the following information to get started"));
         Scanner scanC = new Scanner(System.in);
         System.out.println("# of tables for seating: ");
         numTables = Integer.parseInt(scanC.nextLine());
@@ -47,6 +48,7 @@ public class Conference {
         pplPerTable = Integer.parseInt(scanC.nextLine());
         System.out.println("Max # of people from each company: ");
         maxPplPerCompany = Integer.parseInt(scanC.nextLine());
+        clear();
         capacity = numTables*pplPerTable;
         aArraySize = (int)(numTables*pplPerTable*1.5);
         cArraySize = (int)(numTables*pplPerTable*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
@@ -59,31 +61,6 @@ public class Conference {
         tablesAttendee = new Attendee[numTables][pplPerTable];
         fillArray();
     }
-    /*
-     * Conference constructor gives welcome and takes in arguments such as number of tables, people per tables, and max people per table;
-     * uses those arguments to calculate and define circumstances of the conference, and fills tables arrays. This constructor was used 
-     * for testing and creation; probably retired as of 11/29/2025
-    */
-    
-    /* 
-    public Conference(int numT, int pPT, int mPPC) {
-		System.out.println("\n\nWelcome to the Conference program.\n");
-        numTables = numT;
-        pplPerTable = pPT;
-        maxPplPerCompany = mPPC;
-        capacity = numT*pPT;
-        aArraySize = (int)(numT*pPT*1.5);
-        cArraySize = (int)(numT*pPT*1.5); //accomodates the extreme case that each attendee is from his/her distinct company
-        lenA=findPlaceTens(aArraySize);
-        lenC=findPlaceTens(cArraySize);
-        conferenceArray = new Attendee[aArraySize];
-        companyArray = new String[2][cArraySize];
-        tablesCompNum = new int[numTables][pplPerTable];
-        tablesID = new int[numTables][pplPerTable];
-        tablesAttendee = new Attendee[numTables][pplPerTable];
-        fillArray();
-    }
-    */
     
     //methods
     /*
@@ -189,6 +166,7 @@ public class Conference {
 		System.out.print("\nHow many attendees do you wish to add? If the amount is indefinite, type NA:");
 		//definite quantity case
 		String manualAttendeeResponseNum = scan2.nextLine();
+		clear();
 		if (!(manualAttendeeResponseNum.equals("NA"))){
 			int amtManualAttendees = Integer.parseInt(manualAttendeeResponseNum);
 			for(int i=0; i<amtManualAttendees; i++){
@@ -198,18 +176,22 @@ public class Conference {
 				String lNManual = scan2.nextLine();
 				System.out.print("Company name: ");
 				String cnManual = scan2.nextLine();
+				clear();
 				int cNumManual = getCompanyID(cnManual);
 				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual); //creates new instance of Attendee on gathered info
 				manualID++;
 				System.out.println("\nSuccessfully added!\n\n");
 			}
+			clear();
 		}
 		//indefinite quantity case
 		else {
 			for(int i=aFileSize; i<aArraySize; i++){
 				System.out.print("Continue? If yes, press any key except for q. If not, press q. \n");
 				String lineManual = scan2.nextLine();
+				clear();
 				if (lineManual.equals("q")){ 
+					clear();
 					break; //credit to w3schools for break
 				}	
 				System.out.print("To add attendee, fill out the following information\n\nFirst Name: ");
@@ -218,6 +200,7 @@ public class Conference {
 				String lNManual = scan2.nextLine();
 				System.out.print("Company name: ");
 				String cnManual = scan2.nextLine();
+				clear();
 				int cNumManual = getCompanyID(cnManual);
 				conferenceArray[manualID]=new Attendee(fNManual, lNManual, manualID, cnManual, cNumManual); //creates new instance of Attendee on gathered info
 				manualID++;
@@ -534,16 +517,7 @@ public class Conference {
 	 * matching the user's response with a certain method. However, if the user's prompt is QUIT, the loop ends and the program ends.
 	*/
 	public void menu(){
-		System.out.print("\n\n\nNavigate this program with the following commands.\n\n");
-		System.out.print("To manually add, press m\n");
-		System.out.print("To organize the tables, press o\n");
-		System.out.print("To print the table of IDs, press i\n");
-		System.out.print("To print the table of First Names, press f\n");
-		System.out.print("To search for a person's info, press s\n");
-		System.out.print("To grab a table's info, press t\n");
-		System.out.print("To get a Company's roster, press c\n");
-		//System.out.print("To automatically fix issues, type fix\n");
-		System.out.print("To quit, type QUIT in all caps\n\n");
+		
 		Scanner scanMenu = new Scanner(System.in);
 		String lineMenu = "";
 		while(!lineMenu.equals("QUIT")){
@@ -573,9 +547,20 @@ public class Conference {
 			if(lineMenu.equals("fix")){
 				//fix();
 			}
+			System.out.print(formatBorder("Navigate this program with the following commands"));
+			System.out.print("To manually add, press m\n");
+			System.out.print("To organize the tables, press o\n");
+			System.out.print("To print the table of IDs, press i\n");
+			System.out.print("To print the table of First Names, press f\n");
+			System.out.print("To search for a person's info, press s\n");
+			System.out.print("To grab a table's info, press t\n");
+			System.out.print("To get a Company's roster, press c\n");
+			//System.out.print("To automatically fix issues, type fix\n");
+			System.out.print("To quit, type QUIT in all caps\n\n");
 			System.out.println("\n" + checkConditions() + "\n");
 			System.out.print("Enter a command: ");
 			lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
+			clear();
 		}
 	}
 	/*
@@ -609,5 +594,47 @@ public class Conference {
 				}
 			}		
 		}
-	}					
+	}
+	public String vBorder(String side){
+		if (side.equals("left")){
+			return "|\t\t";
+		}
+		else if(side.equals("right")){
+			return "\t\t|";
+		}
+		else {
+			return "formatting error argument";
+			
+		}		
+	}
+	public String spaces(int num){
+		String spaces = "";
+		for(int i=0;i<num;i++){
+			spaces = spaces + " ";	
+		}
+		return spaces;	
+		
+	}	
+	public String hBorder(int borderLength){
+		String border = "";
+		for(int i=0;i<borderLength;i++){
+			border+="-";
+		}
+		return border;	
+	}
+	public String formatBorder(String text){
+		String fText = "";
+		int textLength = text.length();
+		fText = fText + hBorder(textLength + 4*8-2) + "\n"; //4*8-2 is part of ascii art/formatting --NOT magic number
+		fText = fText + vBorder("left") + spaces(textLength) + vBorder("right") + "\n";
+		fText = fText + vBorder("left") + text + vBorder("right") + "\n";
+		fText = fText + vBorder("left") + spaces(textLength) + vBorder("right") + "\n";
+		fText = fText + hBorder(textLength + 4*8-2) + "\n";
+		return fText;
+	}
+	public void clear(){
+		for(int i=0;i<100;i++){
+			System.out.print("\n");
+		}
+	}								
 }
