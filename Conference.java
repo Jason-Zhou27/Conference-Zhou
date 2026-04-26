@@ -310,7 +310,7 @@ public class Conference {
 		if (cMaxConditionResponse.equals("")){
 			return "";
 		} else {	
-			return "\n\nPlease fix the following issues and then rerun program: \n\n" + cMaxConditionResponse + "\nThanks!\n\n";
+			return (formatBorder("please fix the following issues and then rerun program: ") + "\n" + cMaxConditionResponse);
 		}
 	}
 	/*
@@ -517,11 +517,21 @@ public class Conference {
 	 * matching the user's response with a certain method. However, if the user's prompt is QUIT, the loop ends and the program ends.
 	*/
 	public void menu(){
-		
+		System.out.print(formatBorder("MENU"));
+		System.out.print("To manually add, press a\n");
+		System.out.print("To organize the tables, press o\n");
+		System.out.print("To print the table of IDs, press i\n");
+		System.out.print("To print the table of Names, press n\n");
+		System.out.print("To search for a person's info, press p\n");
+		System.out.print("To grab a table's info, press t\n");
+		System.out.print("To get a Company's roster, press r\n\n");
+		System.out.print("To get the menu at any time, type menu\n");
+		//System.out.print("To automatically fix issues, type fix\n");
+		System.out.print("To quit, type QUIT in all caps\n\n");
 		Scanner scanMenu = new Scanner(System.in);
 		String lineMenu = "";
 		while(!lineMenu.equals("QUIT")){
-			if(lineMenu.equals("m")){
+			if(lineMenu.equals("a")){
 				manualAdd();
 			}
 			if(lineMenu.equals("o")){
@@ -531,32 +541,34 @@ public class Conference {
 				printIDTablesArray();
 				System.out.println();
 			}
-			if(lineMenu.equals("f")){
+			if(lineMenu.equals("n")){
 				printFirstNameTablesArray();
 				System.out.println();
 			}
-			if(lineMenu.equals("s")){
+			if(lineMenu.equals("p")){
 				System.out.println(searchPerson());
 			}
 			if(lineMenu.equals("t")){
 				System.out.println(grabTableInfo());
 			}
-			if(lineMenu.equals("c")){
+			if(lineMenu.equals("r")){
 				System.out.println(getCompanyRoster());
 			}
 			if(lineMenu.equals("fix")){
 				//fix();
 			}
-			System.out.print(formatBorder("Navigate this program with the following commands"));
-			System.out.print("To manually add, press m\n");
-			System.out.print("To organize the tables, press o\n");
-			System.out.print("To print the table of IDs, press i\n");
-			System.out.print("To print the table of First Names, press f\n");
-			System.out.print("To search for a person's info, press s\n");
-			System.out.print("To grab a table's info, press t\n");
-			System.out.print("To get a Company's roster, press c\n");
-			//System.out.print("To automatically fix issues, type fix\n");
-			System.out.print("To quit, type QUIT in all caps\n\n");
+			if(lineMenu.equals("menu")){
+				System.out.print(formatBorder("MENU"));
+				System.out.print("To manually add, press a\n");
+				System.out.print("To organize the tables, press o\n");
+				System.out.print("To print the table of IDs, press i\n");
+				System.out.print("To print the table of Names, press n\n");
+				System.out.print("To search for a person's info, press p\n");
+				System.out.print("To grab a table's info, press t\n");
+				System.out.print("To get a Company's roster, press r\n\n");
+				//System.out.print("To automatically fix issues, type fix\n");
+				System.out.print("To quit, type QUIT in all caps\n\n");
+			}
 			System.out.println("\n" + checkConditions() + "\n");
 			System.out.print("Enter a command: ");
 			lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
