@@ -500,7 +500,7 @@ public class Conference {
 					rosterConc = rosterConc + "Name: " + conferenceArray[l].getFirst() + " " + conferenceArray[l].getLast() + "\n";
 					rosterConc = rosterConc + "ID: " + conferenceArray[l].getID() + "\n";
 					rosterConc = rosterConc + "Table: " + getSeatPlacement(conferenceArray[l])[0] + "\nSeat: " + getSeatPlacement(conferenceArray[l])[1];
-					rosterConc = rosterConc + "\n\n\n";
+					rosterConc = rosterConc + "\n\n";
 				}
 			}		
 		}
@@ -525,7 +525,6 @@ public class Conference {
 		System.out.print("To search for a person's info, press p\n");
 		System.out.print("To grab a table's info, press t\n");
 		System.out.print("To get a Company's roster, press r\n\n");
-		System.out.print("To get the menu at any time, type menu\n");
 		//System.out.print("To automatically fix issues, type fix\n");
 		System.out.print("To quit, type QUIT in all caps\n\n");
 		Scanner scanMenu = new Scanner(System.in);
@@ -570,7 +569,7 @@ public class Conference {
 				System.out.print("To quit, type QUIT in all caps\n\n");
 			}
 			System.out.println("\n" + checkConditions() + "\n");
-			System.out.print("Enter a command: ");
+			System.out.print("Enter a command (type menu to access the menu): ");
 			lineMenu = scanMenu.nextLine(); //prompt and answer at end so while do loop can check for response QUIT before action
 			clear();
 		}
